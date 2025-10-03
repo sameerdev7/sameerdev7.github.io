@@ -2,25 +2,52 @@
  * Site header
  */
 .site-header {
-  border-top: 5px solid $grey-color-dark;
+  border-top: 5px solid $brand-color-dark;
   border-bottom: 1px solid $grey-color-light;
   min-height: $spacing-unit * 1.865;
+  background: linear-gradient(135deg, $brand-color-dark 0%, $brand-color 100%);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
   // Positioning context for the mobile navigation icon
   position: relative;
 }
 
+.site-branding {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  float: left;
+  
+  &:hover {
+    text-decoration: none;
+    
+    .site-icon {
+      transform: translateY(-2px);
+      transition: transform 0.3s ease;
+    }
+  }
+}
+
+.site-icon {
+  margin-right: 12px;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
 .site-title {
   @include relative-font-size(1.625);
-  font-weight: 400;
+  font-weight: 600;
   line-height: $base-line-height * $base-font-size * 2.25;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   margin-bottom: 0;
-  float: left;
 
   &,
   &:visited {
-    color: $grey-color-dark;
+    color: #ffffff;
+  }
+  
+  &:hover {
+    color: #ffffff;
   }
 }
 
@@ -37,12 +64,21 @@
   }
 
   .page-link {
-    color: $text-color;
+    color: #ffffff;
     line-height: $base-line-height;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      text-decoration: none;
+    }
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
-      margin-right: 20px;
+      margin-right: 10px;
     }
   }
 
@@ -56,7 +92,7 @@
     text-align: right;
 
     label[for="nav-trigger"] {
-      display: none;
+      display: block;
       float: right;
       width: 36px;
       height: 36px;
@@ -74,7 +110,7 @@
       text-align: center;
 
       > svg {
-        fill: $grey-color-dark;
+        fill: #ffffff;
       }
     }
 
@@ -91,6 +127,7 @@
     .page-link {
       display: block;
       padding: 5px 10px;
+      color: $text-color;
 
       &:not(:last-child) {
         margin-right: 0;
@@ -108,11 +145,45 @@
 .site-footer {
   border-top: 1px solid $grey-color-light;
   padding: $spacing-unit 0;
+  background-color: #f1f3f5;
 }
 
 .footer-heading {
   @include relative-font-size(1.125);
   margin-bottom: $spacing-unit / 2;
+}
+
+.footer-description {
+  font-size: $small-font-size;
+  color: $grey-color;
+  margin-bottom: 10px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  font-size: $small-font-size;
+  margin-bottom: 5px;
+  
+  .svg-icon {
+    margin-right: 5px;
+  }
+}
+
+.footer-credits,
+.footer-tech,
+.footer-hosting {
+  font-size: $small-font-size;
+  color: $grey-color;
+  margin-bottom: 5px;
+  
+  a {
+    color: $brand-color;
+    
+    &:hover {
+      color: $brand-color-light;
+    }
+  }
 }
 
 .contact-list,
@@ -140,13 +211,13 @@
 }
 
 .footer-col-2 {
-  width: -webkit-calc(20% - (#{$spacing-unit} / 2));
-  width:         calc(20% - (#{$spacing-unit} / 2));
+  width: -webkit-calc(30% - (#{$spacing-unit} / 2));
+  width:         calc(30% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-3 {
-  width: -webkit-calc(45% - (#{$spacing-unit} / 2));
-  width:         calc(45% - (#{$spacing-unit} / 2));
+  width: -webkit-calc(35% - (#{$spacing-unit} / 2));
+  width:         calc(35% - (#{$spacing-unit} / 2));
 }
 
 @include media-query($on-laptop) {
@@ -182,10 +253,13 @@
 
 .page-heading {
   @include relative-font-size(2);
+  color: $brand-color-dark;
 }
 
 .post-list-heading {
   @include relative-font-size(1.75);
+  color: $brand-color-dark;
+  margin-bottom: $spacing-unit;
 }
 
 .post-list {
@@ -194,17 +268,44 @@
 
   > li {
     margin-bottom: $spacing-unit;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
   }
 }
 
 .post-meta {
   font-size: $small-font-size;
   color: $grey-color;
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
 .post-link {
   display: block;
   @include relative-font-size(1.5);
+  color: $brand-color-dark;
+  font-weight: 600;
+  
+  &:hover {
+    color: $brand-color;
+    text-decoration: none;
+  }
+}
+
+.post-excerpt {
+  color: $grey-color;
+  margin-top: 10px;
+  margin-bottom: 0;
+  line-height: 1.6;
+  font-size: $base-font-size;
 }
 
 
@@ -219,7 +320,8 @@
 .post-title {
   @include relative-font-size(2.625);
   letter-spacing: -1px;
-  line-height: 1;
+  line-height: 1.2;
+  color: $brand-color-dark;
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.25);
@@ -231,6 +333,8 @@
 
   h2 {
     @include relative-font-size(2);
+    color: $brand-color-dark;
+    margin-top: $spacing-unit;
 
     @include media-query($on-laptop) {
       @include relative-font-size(1.75);
@@ -239,6 +343,7 @@
 
   h3 {
     @include relative-font-size(1.625);
+    color: $brand-color;
 
     @include media-query($on-laptop) {
       @include relative-font-size(1.375);

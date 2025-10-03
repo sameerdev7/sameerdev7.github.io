@@ -1,10 +1,17 @@
 <header class="site-header" role="banner">
-
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a href="{{ "/" | relative_url }}">  <img class="site-title" src="/assets/logo.svg" style="margin:5px 10px 0px 0px" alt="logo" width="45px" /> </a>
-    <a class="site-title" style="text-decoration:none" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    
+    <!-- New logo/icon - using a layered squares icon -->
+    <a href="{{ "/" | relative_url }}" class="site-branding">
+      <svg class="site-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+        <path d="M2 17l10 5 10-5"></path>
+        <path d="M2 12l10 5 10-5"></path>
+      </svg>
+      <span class="site-title" rel="author">{{ site.title | escape }}</span>
+    </a>
 
     {%- if page_paths -%}
       <nav class="site-nav">

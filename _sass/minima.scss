@@ -10,13 +10,20 @@ $base-line-height: 1.5 !default;
 
 $spacing-unit:     30px !default;
 
-$text-color:       #111 !default;
-$background-color: #fdfdfd !default;
-$brand-color:      #2a7ae2 !default;
+// Updated Color Scheme - Modern blue/purple gradient theme
+$text-color:       #2c3e50 !default;  // Darker, more readable text
+$background-color: #f8f9fa !default;  // Slightly cooler background
+$brand-color:      #5e72e4 !default;  // Modern blue-purple
+$brand-color-light: #7c8eea !default; // Lighter version for hover
+$brand-color-dark:  #3f51b5 !default; // Darker version for header
 
-$grey-color:       #828282 !default;
+$grey-color:       #6c757d !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
 $grey-color-dark:  darken($grey-color, 25%) !default;
+
+// Accent colors
+$accent-color:     #11cdef !default;  // Bright cyan for highlights
+$success-color:    #2dce89 !default;  // Green for success states
 
 $table-text-align: left !default;
 

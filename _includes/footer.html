@@ -2,33 +2,37 @@
   <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
   <div class="wrapper">
-
-
     <div class="footer-col-wrapper">
+      
+      <!-- Left Column - About/Description -->
       <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-
-          <li class="p-name">
-            Built by <a href="https://jekyllrb.com/"> Jekyll</a>
-            </li>
-          <li class="p-name">
-            Icons by <a href="https://game-icons.net/"> Game-icons.net</a>
-            </li>
-            {%- if site.email -%}
-            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-            {%- endif -%}
-        </ul>
+        <p class="footer-description">{{- site.description | escape -}}</p>
+        {%- if site.email -%}
+        <p class="contact-link">
+          <svg class="svg-icon"><use xlink:href="{{ '/assets/minima-social-icons.svg#email' | relative_url }}"></use></svg>
+          <a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </p>
+        {%- endif -%}
       </div>
 
+      <!-- Middle Column - Social Links -->
       <div class="footer-col footer-col-2">
         {%- include social.html -%}
       </div>
 
+      <!-- Right Column - Credits & Copyright -->
       <div class="footer-col footer-col-3">
-        <p>{{- site.description | escape -}}</p>
+        <p class="footer-credits">
+          © {{ 'now' | date: "%Y" }} {{ site.title }}
+        </p>
+        <p class="footer-tech">
+          Powered by <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>
+        </p>
+        <p class="footer-hosting">
+          Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+        </p>
       </div>
+      
     </div>
-
   </div>
-
 </footer>
