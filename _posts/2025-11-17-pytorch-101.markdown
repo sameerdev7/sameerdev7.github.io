@@ -1,0 +1,14 @@
+---
+layout: post
+title: "PyTorch 101"
+date: 2025-11-17
+excerpt: "A beginner friendly guide to PyTorch"
+description: "Learn the basics of PyTorch, Automatic Differentiation and Neural Networks."
+author: Sameer Sayyad
+usemathjax: true
+---
+
+## What is PyTorch? 
+## Tensor Operations 
+## Automatic Differentiation 
+## Neural Networks in PyTorch

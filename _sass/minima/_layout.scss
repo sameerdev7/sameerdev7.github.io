@@ -32,6 +32,12 @@
   margin-right: 12px;
   color: #ffffff;
   transition: transform 0.3s ease;
+  
+  @include media-query($on-palm) {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
 }
 
 .site-title {
@@ -48,6 +54,11 @@
   
   &:hover {
     color: #ffffff;
+  }
+  
+  @include media-query($on-palm) {
+    @include relative-font-size(1.25);
+    line-height: $base-line-height * $base-font-size * 2;
   }
 }
 
@@ -94,23 +105,32 @@
     label[for="nav-trigger"] {
       display: block;
       float: right;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       z-index: 2;
       cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.25);
+      border-radius: 6px;
+      padding: 8px;
+      transition: background-color 0.3s ease;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.35);
+      }
     }
 
     .menu-icon {
       display: block;
       float: right;
-      width: 36px;
-      height: 26px;
+      width: 24px;
+      height: 20px;
       line-height: 0;
-      padding-top: 10px;
+      padding-top: 6px;
       text-align: center;
 
       > svg {
         fill: #ffffff;
+        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
       }
     }
 
@@ -260,6 +280,10 @@
   @include relative-font-size(1.75);
   color: $brand-color-dark;
   margin-bottom: $spacing-unit;
+  
+  @include media-query($on-palm) {
+    @include relative-font-size(1.5);
+  }
 }
 
 .post-list {
@@ -277,6 +301,15 @@
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    
+    @include media-query($on-palm) {
+      padding: 15px;
+      margin-bottom: 20px;
+      
+      &:hover {
+        transform: none;
+      }
     }
   }
 }
@@ -298,6 +331,21 @@
     color: $brand-color;
     text-decoration: none;
   }
+  
+  @include media-query($on-palm) {
+    @include relative-font-size(1.25);
+    line-height: 1.3;
+  }
+}
+
+.post-item-title {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  
+  @include media-query($on-palm) {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+  }
 }
 
 .post-excerpt {
@@ -306,6 +354,11 @@
   margin-bottom: 0;
   line-height: 1.6;
   font-size: $base-font-size;
+  
+  @include media-query($on-palm) {
+    font-size: $small-font-size;
+    line-height: 1.5;
+  }
 }
 
 
@@ -325,6 +378,11 @@
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.25);
+  }
+  
+  @include media-query($on-palm) {
+    @include relative-font-size(1.875);
+    letter-spacing: -0.5px;
   }
 }
 
