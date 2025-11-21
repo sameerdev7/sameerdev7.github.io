@@ -8,7 +8,201 @@ author: Sameer Sayyad
 usemathjax: true
 ---
 
-## What is PyTorch? 
-## Tensor Operations 
-## Automatic Differentiation 
-## Neural Networks in PyTorch
+## Introduction 
+
+PyTorch is an open-sourced Deep Learning library. It is a pythonic successor of Torch library, originally written in Lua programming language. 
+
+It was developed by Facebook's AI Research Lab (FAIR) in 2015. It quickly gained popularity because of it's user friendly interface and efficiency. 
+
+It also has GPU support, provides a features of accelerated computation on GPUs. It's just like NumPy but supports hardware acceleration and autodifferentiation. It offers efficient building blocks of deep learning like pre-trained models, loss functions, and optimizers.
+
+It mainly has three core components:
+1. Tensor Library 
+2. Autograd (Automatic Differentiation Engine)
+3. Deep Learning library.
+
+(Deep Learning is a subset of machine learning which deals with implementation of Deep Neural Networks.)
+ 
+## Tensors 
+
+Tensor is the core data structure of PyTorch. They are numpy-like arrays but with extra features. They can live on GPUs and support auto-differentiation. They are mathematical objects that can be characterized by their order (or rank), which provides the number of dimensions. 
+
+Similar to NumPy arrays, tensor can contain floats, integers, booleans or complex numbers. **Note:** Each tensor can only contain one data type.
+
+Advantages: 
+- Without having to transfer data back and forth, we can perform multiple operations. To avoid performance bottlenecks, this is really crucial. 
+- Since GPUs work by breaking large operations into smaller ones and run them in parallel across multiple threads, it boosts the performance. 
+
+### Creating Tensors
+
+We can create tensors like this: 
+
+```python
+import torch 
+
+# 0D tensor (scalar)
+scalar = torch.tensor(5)
+
+# 1D tensor (vector)
+vector = torch.tensor([1, 2, 3])
+
+# 2D tensor (matrix)
+matrix = torch.tensor([[1, 2, 3], [4, 5, 6]])
+
+# 3D tensor 
+tensor_3d = torch.tensor([
+    [
+        [1, 2, 3],
+        [4, 5, 6]
+    ],
+    [
+        [7, 8, 9],
+        [10, 11, 12]
+    ]
+])
+```
+
+### Tensor Data Types
+
+```python 
+print(f"scalar: {scalar.dtype}"
+        f" | vector: {vector.dtype}" 
+        f" | matrix: {matrix.dtype}"
+        f" | tensor_3d: {tensor_3d.dtype}")
+```
+
+**Output:**
+```
+scalar: torch.int64 | vector: torch.int64 | matrix: torch.int64 | tensor_3d: torch.int64
+```
+
+PyTorch tensor have a default datatype of int64. Let's look at floats: 
+
+```python
+float_tensor = torch.tensor(1.0)
+float_tensor.dtype
+```
+
+**Output:**
+```
+torch.float32
+```
+
+Floating point tensors have a default data type of float32. 64-bit precision is computationally expensive. 32-bit precision is sufficient and consumes less memory and computational resources than 64. 
+
+We can change data types of tensors using the .to() method. 
+
+```python 
+float_vector = vector.to(torch.float32)
+print(float_vector)
+```
+
+**Output:**
+```
+tensor([1., 2., 3.])
+```
+
+### Tensor Operations 
+
+Now, we'll see some common tensor operations. We'll use *torch.rand*/*torch.arange* to generate an array. .rand() will initialize float32 values.
+
+#### Reshaping Tensors
+
+```python
+random_tensor = torch.rand(12)
+random_tensor
+```
+
+**Output:**
+```
+tensor([0.2745, 0.6584, 0.2775, 0.8573, 0.8993, 0.0390, 0.9268, 0.7388, 0.7179,
+        0.7058, 0.9156, 0.4340])
+```
+
+We can simple use .reshape() method to reshape the tensor. 
+
+```python
+matrix_4x3 = random_tensor.reshape(4, 3) # this will reshape array in a 4 x 3 two dimensional tensor.
+
+matrix_4x3
+```
+
+**Output:**
+```
+tensor([[0.2745, 0.6584, 0.2775],
+        [0.8573, 0.8993, 0.0390],
+        [0.9268, 0.7388, 0.7179],
+        [0.7058, 0.9156, 0.4340]])
+```
+
+You can also use .view() to do the same. 
+
+```python
+matrix_view = random_tensor.view(4, 3)
+matrix_view
+```
+
+**Output:**
+```
+tensor([[0.2745, 0.6584, 0.2775],
+        [0.8573, 0.8993, 0.0390],
+        [0.9268, 0.7388, 0.7179],
+        [0.7058, 0.9156, 0.4340]])
+```
+
+#### Matrix Multiplication 
+
+```python
+matrix_4x3.shape
+```
+
+**Output:**
+```
+torch.Size([4, 3])
+```
+
+We can multiply matrix_4x3 with of shape ([3, 4]). We'll take a transpose of the same array. 
+
+```python 
+matrix_transposed = matrix_4x3.T # Transposing using T 
+matrix_transposed.shape
+```
+
+**Output:**
+```
+torch.Size([3, 4])
+```
+
+Now we can perform matrix multiplication between matrix_4x3 and matrix_transposed. 
+
+```python
+matrix_4x3.matmul(matrix_transposed)
+# or matrix_4x3 @ matrix_transposed
+```
+
+**Output:**
+```
+tensor([[0.5858, 0.8383, 0.9400, 0.9170],
+        [0.8383, 1.5453, 1.4870, 1.4455],
+        [0.9400, 1.4870, 1.9201, 1.6422],
+        [0.9170, 1.4455, 1.6422, 1.5250]])
+```
+
+#### Indexing and Conversion
+
+The indexing in PyTorch is same as NumPy. 
+
+You can convert a tensor to numpy array like this: 
+
+```python
+sample_tensor = torch.tensor([1, 2, 3])
+numpy_array = sample_tensor.numpy()
+print(type(numpy_array))
+```
+
+**Output:**
+```
+<class 'numpy.ndarray'>
+```
+
+These were some of the common tensor operations in PyTorch. PyTorch's tensor API is similar to NumPy from slicing and reshaping math operations like `sum`, `mean`, `exp` and `log`.
