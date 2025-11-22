@@ -1,37 +1,43 @@
 ---
 layout: post
 title: "PyTorch 101"
-date: 2025-11-17
-excerpt: "A beginner friendly guide to PyTorch"
-description: "Learn the basics of PyTorch, Automatic Differentiation and Neural Networks."
+date: 2025-11-22
+excerpt: "A beginner-friendly guide to PyTorch"
+description: "Learn the basics of PyTorch, Automatic Differentiation, and Neural Networks."
 author: Sameer Sayyad
 usemathjax: true
 ---
 
 ## Introduction 
 
-PyTorch is an open-sourced Deep Learning library. It is a pythonic successor of Torch library, originally written in Lua programming language. 
+PyTorch is an open-source Deep Learning library. It is a Pythonic successor to the Torch library, originally written in the Lua programming language. 
 
-It was developed by Facebook's AI Research Lab (FAIR) in 2015. It quickly gained popularity because of it's user friendly interface and efficiency. 
+It was developed by Facebook's AI Research Lab (FAIR) in 2016. It quickly gained popularity because of its user-friendly interface and efficiency. 
 
-It also has GPU support, provides a features of accelerated computation on GPUs. It's just like NumPy but supports hardware acceleration and autodifferentiation. It offers efficient building blocks of deep learning like pre-trained models, loss functions, and optimizers.
+It also has GPU support and provides features for accelerated computation on GPUs. It's just like NumPy but supports hardware acceleration and auto-differentiation. It offers efficient building blocks for deep learning like pre-trained models, loss functions, and optimizers.
 
 It mainly has three core components:
-1. Tensor Library 
-2. Autograd (Automatic Differentiation Engine)
-3. Deep Learning library.
 
-(Deep Learning is a subset of machine learning which deals with implementation of Deep Neural Networks.)
+1. **Tensor Library**
+2. **Autograd** (Automatic Differentiation Engine)
+3. **Deep Learning Library**
+
+> **Note:** Deep Learning is a subset of machine learning which deals with the implementation of Deep Neural Networks.
+
+[Install PyTorch](https://pytorch.org/get-started/locally/)
  
 ## Tensors 
 
-Tensor is the core data structure of PyTorch. They are numpy-like arrays but with extra features. They can live on GPUs and support auto-differentiation. They are mathematical objects that can be characterized by their order (or rank), which provides the number of dimensions. 
+A tensor is the core data structure of PyTorch. They are NumPy-like arrays but with extra features. They can live on GPUs and support auto-differentiation. They are mathematical objects that can be characterized by their order (or rank), which provides the number of dimensions. 
 
-Similar to NumPy arrays, tensor can contain floats, integers, booleans or complex numbers. **Note:** Each tensor can only contain one data type.
+Similar to NumPy arrays, tensors can contain floats, integers, booleans, or complex numbers. 
 
-Advantages: 
+> **Note:** Each tensor can only contain one data type.
+
+**Advantages:**
+
 - Without having to transfer data back and forth, we can perform multiple operations. To avoid performance bottlenecks, this is really crucial. 
-- Since GPUs work by breaking large operations into smaller ones and run them in parallel across multiple threads, it boosts the performance. 
+- Since GPUs work by breaking large operations into smaller ones and running them in parallel across multiple threads, it boosts performance. 
 
 ### Creating Tensors
 
@@ -72,11 +78,12 @@ print(f"scalar: {scalar.dtype}"
 ```
 
 **Output:**
+
 ```
 scalar: torch.int64 | vector: torch.int64 | matrix: torch.int64 | tensor_3d: torch.int64
 ```
 
-PyTorch tensor have a default datatype of int64. Let's look at floats: 
+PyTorch tensors have a default datatype of `int64`. Let's look at floats: 
 
 ```python
 float_tensor = torch.tensor(1.0)
@@ -84,13 +91,14 @@ float_tensor.dtype
 ```
 
 **Output:**
+
 ```
 torch.float32
 ```
 
-Floating point tensors have a default data type of float32. 64-bit precision is computationally expensive. 32-bit precision is sufficient and consumes less memory and computational resources than 64. 
+Floating-point tensors have a default data type of `float32`. 64-bit precision is computationally expensive. 32-bit precision is sufficient and consumes less memory and computational resources than 64-bit. 
 
-We can change data types of tensors using the .to() method. 
+We can change data types of tensors using the `.to()` method. 
 
 ```python 
 float_vector = vector.to(torch.float32)
@@ -98,44 +106,48 @@ print(float_vector)
 ```
 
 **Output:**
+
 ```
 tensor([1., 2., 3.])
 ```
 
 ### Tensor Operations 
 
-Now, we'll see some common tensor operations. We'll use *torch.rand*/*torch.arange* to generate an array. .rand() will initialize float32 values.
+Now, we'll see some common tensor operations. We'll use `torch.rand`/`torch.arange` to generate an array. `.rand()` will initialize `float32` values.
 
 #### Reshaping Tensors
 
 ```python
+torch.manual_seed(42)
 random_tensor = torch.rand(12)
 random_tensor
 ```
 
 **Output:**
+
 ```
-tensor([0.2745, 0.6584, 0.2775, 0.8573, 0.8993, 0.0390, 0.9268, 0.7388, 0.7179,
-        0.7058, 0.9156, 0.4340])
+tensor([0.8823, 0.9150, 0.3829, 0.9593, 0.3904, 0.6009, 0.2566, 0.7936, 0.9408,
+        0.1332, 0.9346, 0.5936])
 ```
 
-We can simple use .reshape() method to reshape the tensor. 
+We can simply use the `.reshape()` method to reshape the tensor. 
 
 ```python
-matrix_4x3 = random_tensor.reshape(4, 3) # this will reshape array in a 4 x 3 two dimensional tensor.
+matrix_4x3 = random_tensor.reshape(4, 3)  # this will reshape array into a 4 x 3 two-dimensional tensor.
 
 matrix_4x3
 ```
 
 **Output:**
+
 ```
-tensor([[0.2745, 0.6584, 0.2775],
-        [0.8573, 0.8993, 0.0390],
-        [0.9268, 0.7388, 0.7179],
-        [0.7058, 0.9156, 0.4340]])
+tensor([[0.8823, 0.9150, 0.3829],
+        [0.9593, 0.3904, 0.6009],
+        [0.2566, 0.7936, 0.9408],
+        [0.1332, 0.9346, 0.5936]])
 ```
 
-You can also use .view() to do the same. 
+You can also use `.view()` to do the same. 
 
 ```python
 matrix_view = random_tensor.view(4, 3)
@@ -143,11 +155,12 @@ matrix_view
 ```
 
 **Output:**
+
 ```
-tensor([[0.2745, 0.6584, 0.2775],
-        [0.8573, 0.8993, 0.0390],
-        [0.9268, 0.7388, 0.7179],
-        [0.7058, 0.9156, 0.4340]])
+tensor([[0.8823, 0.9150, 0.3829],
+        [0.9593, 0.3904, 0.6009],
+        [0.2566, 0.7936, 0.9408],
+        [0.1332, 0.9346, 0.5936]])
 ```
 
 #### Matrix Multiplication 
@@ -157,23 +170,25 @@ matrix_4x3.shape
 ```
 
 **Output:**
+
 ```
 torch.Size([4, 3])
 ```
 
-We can multiply matrix_4x3 with of shape ([3, 4]). We'll take a transpose of the same array. 
+We can multiply `matrix_4x3` with a matrix of shape `([3, 4])`. We'll take a transpose of the same array. 
 
 ```python 
-matrix_transposed = matrix_4x3.T # Transposing using T 
+matrix_transposed = matrix_4x3.T  # Transposing using T 
 matrix_transposed.shape
 ```
 
 **Output:**
+
 ```
 torch.Size([3, 4])
 ```
 
-Now we can perform matrix multiplication between matrix_4x3 and matrix_transposed. 
+Now we can perform matrix multiplication between `matrix_4x3` and `matrix_transposed`. 
 
 ```python
 matrix_4x3.matmul(matrix_transposed)
@@ -181,18 +196,19 @@ matrix_4x3.matmul(matrix_transposed)
 ```
 
 **Output:**
+
 ```
-tensor([[0.5858, 0.8383, 0.9400, 0.9170],
-        [0.8383, 1.5453, 1.4870, 1.4455],
-        [0.9400, 1.4870, 1.9201, 1.6422],
-        [0.9170, 1.4455, 1.6422, 1.5250]])
+tensor([[1.7622, 1.4337, 1.3127, 1.1999],
+        [1.4337, 1.4338, 1.1213, 0.8494],
+        [1.3127, 1.1213, 1.5807, 1.3343],
+        [1.1999, 0.8494, 1.3343, 1.2435]])
 ```
 
 #### Indexing and Conversion
 
-The indexing in PyTorch is same as NumPy. 
+The indexing in PyTorch is the same as NumPy. 
 
-You can convert a tensor to numpy array like this: 
+You can convert a tensor to a NumPy array like this: 
 
 ```python
 sample_tensor = torch.tensor([1, 2, 3])
@@ -201,8 +217,640 @@ print(type(numpy_array))
 ```
 
 **Output:**
+
 ```
 <class 'numpy.ndarray'>
 ```
 
-These were some of the common tensor operations in PyTorch. PyTorch's tensor API is similar to NumPy from slicing and reshaping math operations like `sum`, `mean`, `exp` and `log`.
+These were some of the common tensor operations in PyTorch. PyTorch's tensor API is similar to NumPy—from slicing and reshaping to math operations like `sum`, `mean`, `exp`, and `log`.
+
+You can learn more about Tensors: 
+[PyTorch Tensors](https://docs.pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html)
+
+## AutoGrad 
+
+One of PyTorch's key features is that we don't have to manually calculate gradients while doing backpropagation, which is the key algorithm for Neural Network training. PyTorch's automatic differentiation engine is called **Autograd**. 
+
+Autograd simply means **Automatic Gradients**. It provides functions to compute gradients in dynamic computational graphs automatically. A computational graph is a directed graph which allows us to express mathematical expressions. 
+
+**How does it work?**
+
+Autograd engine tracks every operation performed on tensors and constructs a computational graph in the background. Then by calling the `grad` function, we can compute the gradient of the loss with respect to model parameters. 
+
+We create a special tensor for which gradients need to be computed, which allows us to store and update the parameters during model training. It can be created by assigning `requires_grad=True` on initial values. 
+
+**Example:**
+
+Let's say we have a function $f(x) = 4x^2$ and its derivative $f'(x) = 8x$. 
+
+If $x = 4$, then $f'(4) = 32$. Now, let's represent this in PyTorch:
+
+```python
+x = torch.tensor(4.0, requires_grad=True)
+
+f = 4 * (x**2)
+
+# We use .backward() to compute gradient 
+f.backward() 
+
+print(x.grad)
+```
+
+**Output:**
+
+```
+tensor(32.)
+```
+
+- Here, we created a tensor `x`, 4.0. Then we assigned `requires_grad=True`; we told PyTorch that it's a variable and now it will automatically keep track of all operations involving $x$. It is important because PyTorch must capture the computation graph in order to backpropagate and obtain the derivative of $f$ with regard to $x$. Here, `x` is the leaf node. 
+- `f.backward()`: this backpropagates the gradients through the computation graph, starting with $f$ and all the way back to $x$. 
+- Lastly, we can execute `x.grad`, which will give us the derivative of $f$ with respect to `x`. 
+- So, $f'(4) = 32$
+
+Now, we'll look at a complex problem: building a simple logistic regression computational graph and computing gradients. 
+
+![Computational Graph](assets/pytorch-101/forward-pass(1).jpg)
+
+*Figure 1: Computational graph showing forward pass*
+
+We compute the gradients using the Chain Rule. We'll apply the chain rule from right to left, which is called reverse-mode automatic differentiation or backpropagation. We start from the loss and work backward through the network to the input layer.
+
+To make our prediction as close as possible to the target value and minimize the error, we need to compute how loss changes with respect to each parameter and update these parameters during training. 
+
+$$
+\frac{\partial L}{\partial w} = \frac{\partial L}{\partial a} \times \frac{\partial a}{\partial z} \times \frac{\partial z}{\partial u} \times \frac{\partial u}{\partial w}
+$$
+
+Where:
+
+- $\frac{\partial L}{\partial a} = 2(a - y)$ (derivative of squared error)
+- $\frac{\partial a}{\partial z} = a(1 - a)$ (derivative of sigmoid)
+- $\frac{\partial z}{\partial u} = 1$ (derivative of addition)
+- $\frac{\partial u}{\partial w} = x$ (derivative of multiplication)
+
+Therefore:
+
+$$
+\frac{\partial L}{\partial w} = 2(a - y) \times a(1 - a) \times 1 \times x
+$$
+
+**For the bias $b$:**
+
+$$
+\frac{\partial L}{\partial b} = \frac{\partial L}{\partial a} \times \frac{\partial a}{\partial z} \times \frac{\partial z}{\partial b}
+$$
+
+Where:
+
+- $\frac{\partial L}{\partial a} = 2(a - y)$
+- $\frac{\partial a}{\partial z} = a(1 - a)$
+- $\frac{\partial z}{\partial b} = 1$ (derivative of addition)
+
+Therefore:
+
+$$
+\frac{\partial L}{\partial b} = 2(a - y) \times a(1 - a) \times 1
+$$
+
+But the good thing about PyTorch is that we don't need to manually calculate the gradients and do backpropagation. We can just call `loss.backward()`.
+
+Here, we will call the backward method from the `torch.autograd` module. It will compute the sum of the gradients from right to left (terminal nodes) in the graph. Let's represent this in PyTorch. 
+
+```python 
+import torch 
+import torch.nn.functional as F 
+
+# Set seed for reproducibilty 
+torch.manual_seed(42)
+
+# Initialize variables 
+x = torch.tensor(2.0)
+w = torch.tensor(0.5, requires_grad=True)  # requires_grad because we want to calculate the gradients 
+b = torch.tensor(1.0, requires_grad=True) 
+y = torch.tensor(1.0)  # Our target value
+
+## Forward pass (Like in Fig. 1)
+U = w * x 
+z = U + b
+
+a = torch.sigmoid(z)  # sigmoid activation function to transform real-valued input to a value between 0 and 1 
+loss = (a - y) ** 2  # This will measure how far our value is from the target. 
+
+loss.backward()  # Backward pass - compute all gradients 
+
+print(f"dL/dw: {w.grad:.4f}")
+print(f"dL/db: {b.grad:.4f}")
+```
+
+**Output:**
+
+```
+dL/dw: -0.0501
+dL/db: -0.0250
+```
+
+Now that we have got our gradients, it tells us that we need to increase (since gradients are negative) both `w` and `b` to reduce the loss and bring our predictions closer to the target. 
+
+In the following code sample, we'll try to minimize the loss and take our prediction closer to the target value. 
+
+```python
+import torch
+
+# Initialize
+x = torch.tensor(2.0)
+w = torch.tensor(0.5, requires_grad=True)
+b = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(1.0)
+learning_rate = 1.0
+
+# Training loop
+for epoch in range(500):
+    # Forward pass
+    u = w * x
+    z = u + b
+    a = torch.sigmoid(z)
+    loss = (a - y) ** 2
+    
+    # Backward pass
+    loss.backward()
+    
+    # Update parameters (detach from graph)
+    with torch.no_grad():
+        # Stochastic Gradient Descent
+        w.data -= learning_rate * w.grad
+        b.data -= learning_rate * b.grad
+    
+    # Zero gradients for next iteration
+    w.grad.zero_()
+    b.grad.zero_()
+    
+    # Print every 20 epochs
+    if (epoch + 1) % 20 == 0:
+        print(f"Epoch {epoch+1}: Loss = {loss.item():.6f}, w = {w.item():.4f}, b = {b.item():.4f}")
+
+print(f"\nFinal: a = {a.item():.4f}, target = {y.item()}")       
+```
+
+**Output:**
+
+```
+Epoch 20: Loss = 0.002414, w = 0.8943, b = 1.1971
+Epoch 40: Loss = 0.001270, w = 1.0242, b = 1.2621
+Epoch 60: Loss = 0.000858, w = 1.1037, b = 1.3019
+Epoch 80: Loss = 0.000646, w = 1.1610, b = 1.3305
+Epoch 100: Loss = 0.000518, w = 1.2059, b = 1.3529
+Epoch 120: Loss = 0.000432, w = 1.2427, b = 1.3714
+Epoch 140: Loss = 0.000370, w = 1.2739, b = 1.3870
+Epoch 160: Loss = 0.000324, w = 1.3010, b = 1.4005
+Epoch 180: Loss = 0.000288, w = 1.3249, b = 1.4125
+Epoch 200: Loss = 0.000259, w = 1.3463, b = 1.4232
+Epoch 220: Loss = 0.000235, w = 1.3657, b = 1.4329
+Epoch 240: Loss = 0.000216, w = 1.3834, b = 1.4417
+Epoch 260: Loss = 0.000199, w = 1.3997, b = 1.4498
+Epoch 280: Loss = 0.000185, w = 1.4148, b = 1.4574
+Epoch 300: Loss = 0.000172, w = 1.4288, b = 1.4644
+Epoch 320: Loss = 0.000161, w = 1.4420, b = 1.4710
+Epoch 340: Loss = 0.000152, w = 1.4543, b = 1.4771
+Epoch 360: Loss = 0.000143, w = 1.4659, b = 1.4830
+Epoch 380: Loss = 0.000136, w = 1.4769, b = 1.4885
+Epoch 400: Loss = 0.000129, w = 1.4874, b = 1.4937
+Epoch 420: Loss = 0.000123, w = 1.4973, b = 1.4987
+Epoch 440: Loss = 0.000117, w = 1.5068, b = 1.5034
+Epoch 460: Loss = 0.000112, w = 1.5158, b = 1.5079
+Epoch 480: Loss = 0.000107, w = 1.5245, b = 1.5122
+Epoch 500: Loss = 0.000103, w = 1.5328, b = 1.5164
+
+Final: a = 0.9899, target = 1.0
+```
+
+To get a perfect prediction of `a = 1.0000`, we would require more epochs or different hyperparameters, but our prediction `a = 0.9899` ≈ `0.99` (very close to target `1.0`).
+
+That was it about Autograd!
+
+Learn more: 
+[Autograd](https://docs.pytorch.org/tutorials/beginner/introyt/autogradyt_tutorial.html)
+
+
+## Building a Simple Multilayer Perceptron in PyTorch 
+
+In PyTorch, `nn.Module` is the base class of all Neural Networks. As I mentioned in the introduction, it offers efficient building blocks of neural networks including Optimizers, Loss Functions, Normalization, etc. An MLP is a fully-connected Neural Network. 
+
+An MLP takes an input vector, pushes it through a stack of layers, and produces an output vector. Each layer transforms the input using: 
+
+- A weight matrix 
+- A bias vector 
+- A non-linear activation (like ReLU)
+
+This pipeline of transformations lets neural networks learn complex patterns. 
+
+Let's implement an MLP using `nn.Module`:
+
+```python 
+import torch
+from torch import nn
+
+class MLP(nn.Module):
+    # __init__: where we declare the layers
+    def __init__(self, input_dim, hidden_sizes, output_dim):
+        super().__init__()
+
+        layers = []
+        prev = input_dim
+
+        for h in hidden_sizes:
+            layers.append(nn.Linear(prev, h))
+            layers.append(nn.ReLU())
+            prev = h
+
+        layers.append(nn.Linear(prev, output_dim))
+        self.net = nn.Sequential(*layers)
+    
+    # forward: how data flows through those layers
+    def forward(self, x):
+        return self.net(x)
+```
+
+- `nn.Linear` - It is for linear transformation on incoming data. It's a fundamental building block of neural networks.
+- `nn.ReLU` - It is a non-linear activation function, where $f(x) = \max(0, x)$. It outputs the input directly if it's positive and zero if it's negative. 
+- `nn.Sequential` - A container module designed to simplify the construction of neural networks with a linear, sequential flow of layers. 
+
+```python 
+# Now we can instantiate an MLP as follows: 
+model = MLP(input_dim=50, hidden_sizes=(32, 16), output_dim=3)
+print(model)  # To see the summary of the structure
+```
+
+**Output:**
+
+```
+MLP(
+  (net): Sequential(
+    (0): Linear(in_features=50, out_features=32, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=32, out_features=16, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=16, out_features=3, bias=True)
+  )
+)
+```
+
+Now let's count the trainable parameters: 
+
+```python
+params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+print("Trainable parameters:", params)
+```
+
+**Output:**
+
+```
+Trainable parameters: 2211
+```
+
+A short breakdown of parameter calculation:
+
+- **Layer 1:** (50 × 32) + 32 bias = 1,632
+- **Layer 2:** (32 × 16) + 16 bias = 528
+- **Layer 3:** (16 × 3) + 3 bias = 51
+
+And 1,632 + 528 + 51 = **2,211**
+
+Now, let's do a forward pass: 
+
+```python 
+torch.manual_seed(0)
+x = torch.randn(1, 50)
+logits = model(x)
+print(logits)
+```
+
+**Output:**
+
+```
+tensor([[ 0.0535, -0.2287,  0.1101]], grad_fn=<AddmmBackward0>)
+```
+
+These raw outputs are called **logits**. To compute class-membership probabilities for our predictions, we have to call the softmax function: 
+
+```python 
+probas = torch.softmax(logits, dim=1)
+print(probas)
+```
+
+**Output:**
+
+```
+tensor([[0.3556, 0.2681, 0.3763]], grad_fn=<SoftmaxBackward0>)
+```
+
+They sum up to 1. They can now be interpreted as class-membership probabilities. 
+
+> **Note:** A softmax is defined by the equation:
+> 
+> $$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$$
+>
+> Where $z_i$ is the output of neuron $i$ and $n$ is the total number of output neurons.
+>
+> The main purpose behind using softmax is to convert raw output scores (logits) into probabilities that sum to 1.0, which is essential for multi-class classification where the model needs to predict which class an input belongs to.
+
+## Datasets and DataLoaders: Feeding Data to the Model
+
+After defining a custom Multilayer Perceptron, we have to create efficient Datasets and DataLoaders. PyTorch has got us covered. 
+
+- **`Dataset`** - It is used to instantiate objects that define how each data record is loaded and defines what a sample class looks like. 
+- **`DataLoader`** - It handles how the data is shuffled and batched during training. 
+
+Let's create a tiny synthetic classification dataset to show how things work: 
+
+```python
+from torch.utils.data import Dataset 
+
+class TinyDataset(Dataset):
+    def __init__(self, X, y):
+        self.X = X 
+        self.y = y
+
+    # Returns dataset size 
+    def __len__(self):
+        return self.y.shape[0]
+
+    # Returns one (features, label) pair
+    def __getitem__(self, idx):
+        return self.X[idx], self.y[idx]
+```
+
+A `Dataset` must always implement `__len__` and `__getitem__`.
+
+Let's create synthetic data: 
+
+```python 
+torch.manual_seed(42)
+
+X = torch.randn(20, 50) # 20 examples with 50 features
+y = torch.randint(0, 3, (20,)) # 3 classes (0, 1, 2)
+
+## Split train and test (16 train, 4 test)
+X_train, y_train = X[:16], y[:16]
+X_test, y_test = X[16:], y[16:]
+
+train_ds = TinyDataset(X_train, y_train)
+test_ds = TinyDataset(X_test, y_test)
+```
+
+
+Now, let's create the DataLoaders. 
+
+```python 
+from torch.utils.data import DataLoader
+
+train_loader = DataLoader(
+    train_ds, 
+    batch_size=4,
+    shuffle=True,
+    num_workers=0, 
+    drop_last=False   
+)
+
+test_loader = DataLoader(
+    test_ds, 
+    batch_size=4, 
+    shuffle=False, 
+    num_workers=0
+)
+```
+
+We've created our train and test dataloaders with a batch size of 4. 
+
+## Training the Model 
+
+If you have installed GPU-compatible PyTorch and have a GPU available locally, you can train the model on GPU. It significantly boosts the model training process due to multiple cores. GPUs break large operations into smaller operations and run them in parallel across thousands of cores. 
+
+We perform multiple operations on GPU without having to transfer data back and forth between the CPU and GPU, which is crucial in deep learning because data transfer can often become a performance bottleneck. 
+
+Let's start: 
+
+```python
+import torch.nn.functional as F # For the cross_entropy loss function
+
+torch.manual_seed(42)
+if torch.cuda.is_available():
+    device = "cuda"
+else: 
+    device = "cpu"
+
+# Instantiate the model 
+model = MLP(input_dim=50, hidden_sizes=(32, 16), output_dim=3).to(device)
+
+# Create an optimizer (Stochastic Gradient Descent with learning rate 0.1)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+
+# Number of epochs (repetitions)
+num_epochs = 500
+
+for epoch in range(num_epochs):
+
+    model.train()
+    for batch_idx, (features, labels) in enumerate(train_loader):
+
+        # Transfer the data to the GPU 
+        features, labels = features.to(device), labels.to(device)
+
+        logits = model(features)  # Forward pass
+        loss = F.cross_entropy(logits, labels)  # Compute loss 
+
+        optimizer.zero_grad()  # Reset gradients 
+        loss.backward()  # Compute gradients 
+        optimizer.step()  # Update parameters 
+
+        if (epoch + 1) % 20 == 0:
+            print(f"Epoch {epoch+1}/{num_epochs} | "
+                f"Batch {batch_idx+1}/{len(train_loader)} | "
+                f"Loss: {loss.item():.4f}")
+        
+    model.eval()
+```
+
+**Output:**
+
+```
+Epoch 20/500 | Batch 1/4 | Loss: 0.0255
+Epoch 20/500 | Batch 2/4 | Loss: 0.1797
+Epoch 20/500 | Batch 3/4 | Loss: 0.1097
+Epoch 20/500 | Batch 4/4 | Loss: 0.0737
+Epoch 40/500 | Batch 1/4 | Loss: 0.0175
+Epoch 40/500 | Batch 2/4 | Loss: 0.0077
+Epoch 40/500 | Batch 3/4 | Loss: 0.0090
+Epoch 40/500 | Batch 4/4 | Loss: 0.0044
+Epoch 60/500 | Batch 1/4 | Loss: 0.0054
+Epoch 60/500 | Batch 2/4 | Loss: 0.0058
+Epoch 60/500 | Batch 3/4 | Loss: 0.0036
+Epoch 60/500 | Batch 4/4 | Loss: 0.0017
+Epoch 80/500 | Batch 1/4 | Loss: 0.0014
+Epoch 80/500 | Batch 2/4 | Loss: 0.0028
+Epoch 80/500 | Batch 3/4 | Loss: 0.0041
+Epoch 80/500 | Batch 4/4 | Loss: 0.0018
+Epoch 100/500 | Batch 1/4 | Loss: 0.0025
+Epoch 100/500 | Batch 2/4 | Loss: 0.0015
+Epoch 100/500 | Batch 3/4 | Loss: 0.0013
+Epoch 100/500 | Batch 4/4 | Loss: 0.0016
+Epoch 120/500 | Batch 1/4 | Loss: 0.0013
+Epoch 120/500 | Batch 2/4 | Loss: 0.0017
+Epoch 120/500 | Batch 3/4 | Loss: 0.0007
+Epoch 120/500 | Batch 4/4 | Loss: 0.0016
+Epoch 140/500 | Batch 1/4 | Loss: 0.0010
+...
+Epoch 500/500 | Batch 1/4 | Loss: 0.0001
+Epoch 500/500 | Batch 2/4 | Loss: 0.0002
+Epoch 500/500 | Batch 3/4 | Loss: 0.0001
+Epoch 500/500 | Batch 4/4 | Loss: 0.0003
+```
+
+Now, we'll make predictions: 
+
+```python 
+model.eval()
+
+with torch.no_grad():
+    outputs = model(X_train.to(device))
+
+print(outputs)
+```
+
+**Output:**
+
+```
+tensor([[ 6.6765, -2.7056, -4.8007],
+        [-3.0858,  6.2501, -3.8167],
+        [-2.6280,  5.5479, -3.4274],
+        [ 7.1114, -4.7180, -3.3552],
+        [-3.3177, -3.3236,  5.4029],
+        [-3.1010,  5.6211, -3.2381],
+        [-2.9912, -2.7274,  5.4758],
+        [-3.7930, -3.4510,  5.6622],
+        [ 5.6182, -3.0453, -3.6460],
+        [ 6.5617, -1.8531, -5.2582],
+        [-3.7446,  6.5740, -3.4922],
+        [ 6.4472, -5.0281, -2.5837],
+        [ 6.6230, -4.5307, -3.0591],
+        [-3.2225,  6.1563, -3.4949],
+        [ 6.5692, -5.4220, -2.4032],
+        [-3.9865,  6.6888, -3.4093]], device='cuda:0')
+```
+
+Now, convert the logits into probabilities like we did before: 
+
+```python 
+torch.set_printoptions(sci_mode=False)
+probas = torch.softmax(outputs, dim=1)
+print(probas)
+```
+
+**Output:**
+
+```
+tensor([[0.9999, 0.0001, 0.0000],
+        [0.0001, 0.9999, 0.0000],
+        [0.0003, 0.9996, 0.0001],
+        [1.0000, 0.0000, 0.0000],
+        [0.0002, 0.0002, 0.9997],
+        [0.0002, 0.9997, 0.0001],
+        [0.0002, 0.0003, 0.9995],
+        [0.0001, 0.0001, 0.9998],
+        [0.9997, 0.0002, 0.0001],
+        [0.9998, 0.0002, 0.0000],
+        [0.0000, 0.9999, 0.0000],
+        [0.9999, 0.0000, 0.0001],
+        [0.9999, 0.0000, 0.0001],
+        [0.0001, 0.9999, 0.0001],
+        [0.9999, 0.0000, 0.0001],
+        [0.0000, 0.9999, 0.0000]], device='cuda:0')
+```
+
+Get the predicted class indices using `argmax` so that we can compare them with `y_train`:
+
+```python 
+preds = torch.argmax(outputs, dim=1)
+print(preds)
+```
+
+**Output:**
+
+```
+tensor([0, 1, 1, 0, 2, 1, 2, 2, 0, 0, 1, 0, 0, 1, 0, 1], device='cuda:0')
+```
+
+```python
+preds == y_train.to(device)
+```
+
+**Output:**
+
+```
+tensor([True, True, True, True, True, True, True, True, True, True, True, True,
+        True, True, True, True], device='cuda:0')
+```
+
+Let's check the correct number of predictions: 
+
+```python
+correct = torch.sum(preds == y_train.to(device))
+print(correct.item())
+```
+
+**Output:**
+
+```
+16
+```
+
+All of the predictions are correct, so the accuracy should be 100%. Let's verify that: 
+
+```python
+accuracy = correct.item() / len(y_train)
+print("Accuracy:", accuracy)
+```
+
+**Output:**
+
+```
+Accuracy: 1.0
+```
+
+So, we have now successfully implemented the MLP, created a dummy dataset, built dataloaders, trained it, and achieved 100% accuracy. 
+
+## Saving and Loading the Model 
+
+Now the last part: saving the model. We can save the model using `torch.save()`. `state_dict` is a Python dictionary object that maps each layer in the model to its trainable parameters (weights and biases). Whereas `model.pth` is an arbitrary filename; `.pth` and `.pt` are the most common conventions.
+
+```python 
+torch.save(model.state_dict(), "model.pth")
+```
+
+After saving the model, we can restore it like this: 
+
+```python 
+model = MLP(input_dim=50, hidden_sizes=(32, 16), output_dim=3)
+model.load_state_dict(torch.load("model.pth", weights_only=True))
+```
+
+**Output:**
+
+```
+<All keys matched successfully>
+```
+
+### References
+- [PyTorch in One Hour](https://sebastianraschka.com/teaching/pytorch-1h/)
+- [Official Documentation](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
+
+
+### More Reading
+- [PyTorch Internals](https://blog.ezyang.com/2019/05/pytorch-internals/)
+- [What is torch.nn really?](https://docs.pytorch.org/tutorials/beginner/nn_tutorial.html)
+
+### Videos 
+- [PyTorch Internals](https://youtu.be/xACkXHE8kCM?si=q1iumgoevOY3Htzh)
+- [Autograd](https://youtu.be/MswxJw-8PvE?si=F-jALibUh3wlMdBt)
+- [Micrograd](https://youtu.be/VMj-3S1tku0?si=460KC_rNVA45GrCU)
+
+**Thank you!**

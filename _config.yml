@@ -18,13 +18,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Goku's Blog
+title: Sameer's Blog
 email: sameer7sayyad@gmail.com
 description: Writing about AI and Engineering
 domain: sameerdev7.github.io
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://sameerdev7.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: _sammeeer
 linkedin_username: sameerdev7
 github_username:  sameerdev7
 
@@ -49,7 +48,6 @@ twitter:
 social:
   name: Sameer Sayyad
   links:
-    - https://twitter.com/_sammeeer
     - https://www.linkedin.com/in/sameerdev7
     - https://github.com/sameerdev7
 
