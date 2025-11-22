@@ -839,14 +839,13 @@ model.load_state_dict(torch.load("model.pth", weights_only=True))
 <All keys matched successfully>
 ```
 
-### References
-- [PyTorch in One Hour](https://sebastianraschka.com/teaching/pytorch-1h/)
-- [Official Documentation](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
 
 
 ### More Reading
 - [PyTorch Internals](https://blog.ezyang.com/2019/05/pytorch-internals/)
 - [What is torch.nn really?](https://docs.pytorch.org/tutorials/beginner/nn_tutorial.html)
+- [PyTorch in One Hour](https://sebastianraschka.com/teaching/pytorch-1h/)
+- [Official Documentation](https://docs.pytorch.org/docs/stable/index.html)
 
 ### Videos 
 - [PyTorch Internals](https://youtu.be/xACkXHE8kCM?si=q1iumgoevOY3Htzh)
