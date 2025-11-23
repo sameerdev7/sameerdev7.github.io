@@ -848,6 +848,7 @@ model.load_state_dict(torch.load("model.pth", weights_only=True))
 - [Official Documentation](https://docs.pytorch.org/docs/stable/index.html)
 
 ### Videos 
+- [PyTorch In A Day](https://youtu.be/Z_ikDlimN6A?si=sWT3T0E3l66gnhuM)
 - [PyTorch Internals](https://youtu.be/xACkXHE8kCM?si=q1iumgoevOY3Htzh)
 - [Autograd](https://youtu.be/MswxJw-8PvE?si=F-jALibUh3wlMdBt)
 - [Micrograd](https://youtu.be/VMj-3S1tku0?si=460KC_rNVA45GrCU)
