@@ -93,66 +93,13 @@
     }
   }
 
-  @include media-query($on-palm) {
-    position: absolute;
-    top: 9px;
-    right: $spacing-unit / 2;
-    background-color: $background-color;
-    border: 1px solid $grey-color-light;
-    border-radius: 5px;
-    text-align: right;
-
-    label[for="nav-trigger"] {
-      display: block;
-      float: right;
-      width: 40px;
-      height: 40px;
-      z-index: 2;
-      cursor: pointer;
-      background-color: rgba(255, 255, 255, 0.25);
-      border-radius: 6px;
-      padding: 8px;
-      transition: background-color 0.3s ease;
-      
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.35);
-      }
-    }
-
-    .menu-icon {
-      display: block;
-      float: right;
-      width: 24px;
-      height: 20px;
-      line-height: 0;
-      padding-top: 6px;
-      text-align: center;
-
-      > svg {
-        fill: #ffffff;
-        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
-      }
-    }
-
-    input ~ .trigger {
-      clear: both;
-      display: none;
-    }
-
-    input:checked ~ .trigger {
-      display: block;
-      padding-bottom: 5px;
-    }
-
+     @include media-query($on-palm) {
     .page-link {
-      display: block;
-      padding: 5px 10px;
-      color: $text-color;
-
+      color: #ffffff;
+      
       &:not(:last-child) {
-        margin-right: 0;
+        margin-right: 10px;
       }
-      margin-left: 20px;
     }
   }
 }
