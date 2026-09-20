@@ -1,0 +1,86 @@
+/**
+ * Sidebar table of contents (populated by assets/js/toc.js)
+ */
+.post-toc {
+  // `visibility: hidden` (not `display: none`) when there aren't enough
+  // headings to populate it: the element still occupies its grid track, so
+  // the article stays in its own (wider) track and centered instead of
+  // auto-flowing into the TOC's narrower one. Only actually removed from
+  // the grid below $on-toc, where the layout collapses to one column and
+  // there's no track to preserve.
+  visibility: hidden;
+
+  @media screen and (max-width: $on-toc) {
+    display: none !important;
+  }
+}
+
+.post-toc.is-active {
+  visibility: visible;
+  position: sticky;
+  top: $spacing-unit;
+  align-self: start;
+  max-height: calc(100vh - #{$spacing-unit} * 2);
+  overflow-y: auto;
+  font-family: $sans-font-family;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+
+.post-toc-heading {
+  @include relative-font-size(0.8);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.post-toc.is-active[open] .post-toc-heading {
+  margin-bottom: 12px;
+}
+
+.post-toc-list,
+.post-toc-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-toc-list {
+  @include relative-font-size(0.82);
+}
+
+.post-toc-list ul {
+  margin-left: 14px;
+  border-left: 1px solid var(--border);
+  padding-left: 12px;
+  margin-top: 8px;
+}
+
+.post-toc-list li {
+  margin-bottom: 10px;
+}
+
+.post-toc-list a {
+  color: var(--text-muted);
+  display: block;
+  line-height: 1.45;
+
+  &:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+}
+
+.post-toc-list a.is-active {
+  color: var(--accent);
+  font-weight: 600;
+}

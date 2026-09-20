@@ -19,6 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Sameer's Blog
+tagline: Notes on AI, engineering, and the occasional detour.
 email: sameer7sayyad@gmail.com
 description: Writing about AI and Engineering
 domain: sameerdev7.github.io
@@ -32,24 +33,55 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 markdown: kramdown
 highlighter: rouge
 input: GFM
-permalink: /:title
+permalink: /:title/
 sass:
   quiet_deps: true
 
+collections:
+  notes:
+    output: true
+    permalink: /notes/:title/
+
+defaults:
+  # jekyll-seo-tag reads `image` from the page's own front matter only, not
+  # from a top-level site config key — front matter defaults are the
+  # documented way to give every page/post a fallback og:image.
+  - scope:
+      path: ""
+    values:
+      image: /assets/og-image.png
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      usemathjax: true
+  - scope:
+      path: ""
+      type: notes
+    values:
+      layout: note
+      usemathjax: true
+
 # SEO
 author:
-  name: Aman Salykov
-  twitter: salykova_
-twitter:
-  username: salykova_
+  name: Sameer Sayyad
 social:
   name: Sameer Sayyad
   links:
     - https://www.linkedin.com/in/sameerdev7
     - https://github.com/sameerdev7
+
+# Comments (giscus.app) - leave repo blank to keep comments disabled.
+giscus:
+  repo: "sameerdev7/sameerdev7.github.io"
+  repo_id: "R_kgDOP7XHeQ"
+  category: "General"
+  category_id: "DIC_kwDOP7XHec4DGBiA"
 
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -58,14 +90,7 @@ social:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Gemfile, Gemfile.lock, vendor/bundle/, .jekyll-cache/, etc. are already
+# excluded by Jekyll's internal defaults — this just adds our local-notes folder.
+exclude:
+  - docs/

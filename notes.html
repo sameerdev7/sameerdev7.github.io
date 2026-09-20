@@ -1,0 +1,27 @@
+---
+layout: page
+title: Notes
+permalink: /notes/
+---
+
+<p class="page-tagline">Quick study logs and things I'm learning — lighter and rawer than the main posts.</p>
+
+{%- if site.notes.size > 0 -%}
+<ul class="post-list">
+  {%- assign sorted_notes = site.notes | sort: "date" | reverse -%}
+  {%- for note in sorted_notes -%}
+  <li>
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    <span class="post-meta">{{ note.date | date: date_format }}</span>
+    <h2 class="post-item-title">
+      <a class="post-link" href="{{ note.url | relative_url }}">{{ note.title | escape }}</a>
+    </h2>
+    {%- if note.excerpt -%}
+    <p class="post-excerpt">{{ note.excerpt | strip_html | truncatewords: 24 }}</p>
+    {%- endif -%}
+  </li>
+  {%- endfor -%}
+</ul>
+{%- else -%}
+<p class="empty-state">No notes yet — check back soon.</p>
+{%- endif -%}

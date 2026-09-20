@@ -1,45 +1,50 @@
 @charset "utf-8";
 
-// Define defaults for each variable.
+// Fonts. Body/headings are serif (academic feel); UI chrome (nav, meta,
+// buttons, tags) is sans-serif for contrast; code is monospace. All three
+// are system-font stacks, so there are zero webfont network requests.
+$serif-font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !default;
+$sans-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !default;
+$mono-font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace !default;
 
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$base-font-size:   16px !default;
+$base-font-family: $serif-font-family !default;
+$base-font-size:   19px !default;
 $base-font-weight: 400 !default;
-$small-font-size:  $base-font-size * 0.875 !default;
-$base-line-height: 1.5 !default;
+$small-font-size:  $base-font-size * 0.75 !default;
+$base-line-height: 1.6 !default;
 
-$spacing-unit:     30px !default;
-
-// Updated Color Scheme - Modern blue/purple gradient theme
-$text-color:       #2c3e50 !default;  // Darker, more readable text
-$background-color: #f8f9fa !default;  // Slightly cooler background
-$brand-color:      #5e72e4 !default;  // Modern blue-purple
-$brand-color-light: #7c8eea !default; // Lighter version for hover
-$brand-color-dark:  #3f51b5 !default; // Darker version for header
-
-$grey-color:       #6c757d !default;
-$grey-color-light: lighten($grey-color, 40%) !default;
-$grey-color-dark:  darken($grey-color, 25%) !default;
-
-// Accent colors
-$accent-color:     #11cdef !default;  // Bright cyan for highlights
-$success-color:    #2dce89 !default;  // Green for success states
+$spacing-unit:     40px !default;
 
 $table-text-align: left !default;
 
-// Width of the content area
-$content-width:    800px !default;
+// Width of the content area for single-column pages (home, about, notes, projects).
+$content-width:    740px !default;
+
+// Width of site chrome (header/footer) — wider than the reading column so
+// nav items have room to breathe instead of bunching up under the logo.
+$site-width: 1120px !default;
+
+// Width of the post body when a sidebar TOC is present alongside it.
+// 785px matches huyenchip.com's measured article column width.
+$post-content-width: 785px !default;
+$toc-width: 280px !default;
+$toc-gap: 32px !default;
+
+// Total width of the 3-column post grid ([toc][article][mirror]). This has
+// to be its own (wider) variable, not $site-width — the two outer gutter
+// tracks must each be at least $toc-width or the TOC gets squeezed narrower
+// than its content and wraps badly. Below this, TOC hides and the article
+// alone centers within $site-width like every other page.
+$post-grid-width: $toc-width * 2 + $toc-gap * 2 + $post-content-width !default;
 
 $on-palm:          600px !default;
-$on-laptop:        800px !default;
+$on-laptop:        900px !default;
+// Below this, the sidebar TOC is hidden. Has to cover $post-grid-width PLUS
+// the page's own left/right padding, or the viewport can satisfy the
+// "wide enough" check while still not having room to render the grid at
+// full size, squeezing the article narrower than $post-content-width.
+$on-toc: $post-grid-width + $spacing-unit * 2 !default;
 
-// Use media queries like this:
-// @include media-query($on-palm) {
-//   .wrapper {
-//     padding-right: $spacing-unit / 2;
-//     padding-left: $spacing-unit / 2;
-//   }
-// }
 @mixin media-query($device) {
   @media screen and (max-width: $device) {
     @content;
@@ -52,7 +57,9 @@ $on-laptop:        800px !default;
 
 // Import partials.
 @import
+  "variables",
   "minima/base",
   "minima/layout",
-  "minima/syntax-highlighting"
+  "minima/syntax-highlighting",
+  "toc"
 ;

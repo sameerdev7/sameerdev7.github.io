@@ -4,13 +4,13 @@ title: About
 permalink: /about/
 ---
 
-## Hi, I'm Sameer! 
+## Hi, I'm Sameer!
 
-I'm a final year engineering student with a deep passion for **Artificial Intelligence** and **Web Development**. This blog is where I share my journey in the world of technology.
+I'm a Computer Engineering graduate (2026), currently working on **AI** and **Software Engineering**. This blog is where I share my journey in the world of technology.
 
 ### What I Do
 
-I'm fascinated by the intersection of AI and engineering, constantly exploring how intelligent systems can solve real-world problems. From building neural networks to crafting responsive web applications, I love bringing ideas to life through code.
+I'm fascinated by the intersection of AI and engineering, constantly exploring how intelligent systems can solve real-world problems. From building neural networks to designing solid software systems, I love bringing ideas to life through code.
 
 ### My Interests
 
@@ -19,13 +19,16 @@ I'm fascinated by the intersection of AI and engineering, constantly exploring h
 - Natural Language Processing
 - Large Language Models
 
-**Web Development**
-- Full-stack development
-- Modern web technologies
+**Software Engineering**
+- Systems & backend development
+- Developer tooling
 
-**Engineering**
-- Problem-solving through technology
-- Continuous learning
+### Tech Stack
+
+- **Languages:** Python, C/C++, JavaScript, TypeScript
+- **AI/ML:** PyTorch, Transformers, Hugging Face, Scikit-learn
+- **Backend:** FastAPI, PostgreSQL, Docker, MySQL
+- **Frontend:** React, Tailwind
 
 ### Why This Blog?
 
@@ -41,4 +44,4 @@ I'm always excited to connect with fellow tech enthusiasts, learners, and profes
 
 ---
 
-*Currently exploring new frontiers in AI while finishing my engineering degree. Excited about what's next!*
+*Currently working on AI and Software Engineering, from home.*

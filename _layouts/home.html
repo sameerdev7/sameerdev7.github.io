@@ -2,35 +2,36 @@
 layout: default
 ---
 
-<div class="home">
-  {%- if page.title -%}
-  <h1 class="page-heading">{{ page.title }}</h1>
+<div class="home wrapper">
+  <h1 class="page-heading">{{ page.title | default: "Blog" }}</h1>
+
+  {%- if site.tagline -%}
+  <p class="page-tagline">{{ site.tagline }}</p>
   {%- endif -%}
 
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
-  <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
   <ul class="post-list">
     {%- for post in site.posts -%}
       {%- if post.archived != true -%}
       <li>
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3 class="post-item-title">
+        <h2 class="post-item-title">
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
-        </h3>
+        </h2>
         {%- if post.excerpt -%}
-          <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 24 }}</p>
         {%- endif -%}
       </li>
       {%- endif -%}
     {%- endfor -%}
   </ul>
-
-  <!-- <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p> -->
+  {%- else -%}
+  <p class="empty-state">No posts yet — check back soon.</p>
   {%- endif -%}
 
 </div>

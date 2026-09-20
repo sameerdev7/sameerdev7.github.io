@@ -1,0 +1,28 @@
+---
+layout: page
+title: Tags
+permalink: /tags/
+---
+
+{%- assign tags = site.tags | sort -%}
+{%- if tags.size > 0 -%}
+{%- for tag in tags -%}
+<div class="tag-index-group" id="{{ tag[0] | slugify }}">
+  <h2 class="tag-index-heading">{{ tag[0] }}</h2>
+  <ul class="tag-index-list">
+    {%- assign items = tag[1] | sort: "date" | reverse -%}
+    {%- for item in items -%}
+    <li>
+      <a href="{{ item.url | relative_url }}">{{ item.title | escape }}</a>
+      <span class="tag-index-date">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ item.date | date: date_format }}
+      </span>
+    </li>
+    {%- endfor -%}
+  </ul>
+</div>
+{%- endfor -%}
+{%- else -%}
+<p class="empty-state">No tagged posts yet.</p>
+{%- endif -%}

@@ -6,6 +6,7 @@ excerpt: "A beginner-friendly guide to PyTorch"
 description: "Learn the basics of PyTorch, Automatic Differentiation, and Neural Networks."
 author: Sameer Sayyad
 usemathjax: true
+tags: [pytorch, deep-learning]
 ---
 
 ## Introduction 
@@ -269,7 +270,7 @@ tensor(32.)
 
 Now, we'll look at a complex problem: building a simple logistic regression computational graph and computing gradients. 
 
-![Computational Graph](assets/pytorch-101/forward-pass(1).jpg)
+![Computational Graph](/assets/pytorch-101/forward-pass(1).jpg)
 
 *Figure 1: Computational graph showing forward pass*
 

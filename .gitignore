@@ -1,3 +1,7 @@
 _site/
 _drafts/
 .vscode
+.jekyll-cache/
+.bundle/
+vendor/
+docs/

@@ -1,0 +1,95 @@
+/**
+ * Color tokens, as CSS custom properties so the dark/light toggle can swap
+ * them at runtime without a second Sass build.
+ */
+:root {
+  --bg: #fbfaf7;
+  --bg-elevated: #ffffff;
+  --text: #1c1c1a;
+  --text-muted: #6b6a63;
+  --border: #e6e2d8;
+  --accent: #2f5f8f;
+  --accent-soft: #eaf0f5;
+  --shadow: rgba(20, 20, 20, 0.06);
+  --selection: rgba(47, 95, 143, 0.18);
+
+  --code-bg: #f6f4ef;
+  --code-border: #e6e2d8;
+  --code-fg: #3a3a38;
+  --code-comment: #8a8778;
+  --code-keyword: #a63d7a;
+  --code-string: #3f7d4a;
+  --code-number: #0f7a8c;
+  --code-function: #1c5fa8;
+  --code-tag: #a1521c;
+  --code-attr: #8a6a1c;
+  --code-variable: #5b4ea6;
+  --code-constant: #0f7a8c;
+  --code-error-fg: #b5312a;
+  --code-error-bg: #fbe7e5;
+}
+
+:root[data-theme="dark"] {
+  --bg: #16181c;
+  --bg-elevated: #1c1f24;
+  --text: #e5e4e0;
+  --text-muted: #9a9891;
+  --border: #2c2f34;
+  --accent: #7fb0dd;
+  --accent-soft: #202833;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --selection: rgba(127, 176, 221, 0.25);
+
+  --code-bg: #1c1f24;
+  --code-border: #2c2f34;
+  --code-fg: #d8d6d0;
+  --code-comment: #83807a;
+  --code-keyword: #e893c4;
+  --code-string: #8fd19e;
+  --code-number: #6fc6d9;
+  --code-function: #7fb0dd;
+  --code-tag: #e0a45f;
+  --code-attr: #d9c069;
+  --code-variable: #b3a6e8;
+  --code-constant: #6fc6d9;
+  --code-error-fg: #ff8a80;
+  --code-error-bg: #3a2323;
+}
+
+/* Respect system preference when the visitor has no saved choice and JS is disabled. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16181c;
+    --bg-elevated: #1c1f24;
+    --text: #e5e4e0;
+    --text-muted: #9a9891;
+    --border: #2c2f34;
+    --accent: #7fb0dd;
+    --accent-soft: #202833;
+    --shadow: rgba(0, 0, 0, 0.35);
+    --selection: rgba(127, 176, 221, 0.25);
+
+    --code-bg: #1c1f24;
+    --code-border: #2c2f34;
+    --code-fg: #d8d6d0;
+    --code-comment: #83807a;
+    --code-keyword: #e893c4;
+    --code-string: #8fd19e;
+    --code-number: #6fc6d9;
+    --code-function: #7fb0dd;
+    --code-tag: #e0a45f;
+    --code-attr: #d9c069;
+    --code-variable: #b3a6e8;
+    --code-constant: #6fc6d9;
+    --code-error-fg: #ff8a80;
+    --code-error-bg: #3a2323;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--selection);
+}

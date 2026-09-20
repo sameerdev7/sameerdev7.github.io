@@ -1,38 +1,16 @@
-<footer class="site-footer h-card">
-  <data class="u-url" href="{{ "/" | relative_url }}"></data>
-
-  <div class="wrapper">
-    <div class="footer-col-wrapper">
-      
-      <!-- Left Column - About/Description -->
-      <div class="footer-col footer-col-1">
-        <p class="footer-description">{{- site.description | escape -}}</p>
-        {%- if site.email -%}
-        <p class="contact-link">
-          <svg class="svg-icon"><use xlink:href="{{ '/assets/minima-social-icons.svg#email' | relative_url }}"></use></svg>
-          <a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
-        </p>
-        {%- endif -%}
-      </div>
-
-      <!-- Middle Column - Social Links -->
-      <div class="footer-col footer-col-2">
-        {%- include social.html -%}
-      </div>
-
-      <!-- Right Column - Credits & Copyright -->
-      <div class="footer-col footer-col-3">
-        <p class="footer-credits">
-          © {{ 'now' | date: "%Y" }} {{ site.title }}
-        </p>
-        <p class="footer-tech">
-          Powered by <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>
-        </p>
-        <p class="footer-hosting">
-          Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
-        </p>
-      </div>
-      
-    </div>
+<footer class="site-footer">
+  <div class="wrapper footer-inner">
+    <p class="footer-line">© {{ "now" | date: "%Y" }} {{ site.author.name | default: site.title }}</p>
+    <p class="footer-links">
+      {%- if site.github_username -%}
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
+      {%- endif -%}
+      {%- if site.linkedin_username -%}
+      <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener">LinkedIn</a>
+      {%- endif -%}
+      {%- if site.email -%}
+      <a href="mailto:{{ site.email }}">Email</a>
+      {%- endif -%}
+    </p>
   </div>
 </footer>
