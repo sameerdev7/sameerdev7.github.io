@@ -1,0 +1,304 @@
+/* Chips ------------------------------------------------------------- */
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-2);
+  transition: border-color 0.15s ease, color 0.15s ease;
+
+  .count { color: var(--text-3); font-variant-numeric: tabular-nums; }
+}
+
+a.chip:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Buttons ------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 17px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text);
+  transition: border-color 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
+
+  &:hover { border-color: var(--text-3); color: var(--text); }
+}
+
+.btn-primary {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+
+  &:hover { color: var(--bg); opacity: 0.88; border-color: var(--text); }
+}
+
+/* Post / note rows ---------------------------------------------------- */
+
+.post-row {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 6px 24px;
+  padding-block: 26px;
+  border-bottom: 1px solid var(--border);
+
+  &:last-child { border-bottom: 0; }
+
+  @include down($bp-sm) {
+    grid-template-columns: 1fr;
+    padding-block: 22px;
+  }
+}
+
+.post-row-date {
+  padding-top: 0.5em;
+  font-size: 0.85rem;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.post-row-title {
+  font-size: 1.4rem;
+  line-height: 1.28;
+
+  a { color: var(--text); &:hover { color: var(--accent); } }
+}
+
+.post-row-excerpt {
+  margin-top: 8px;
+  font-family: $font-serif;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.post-row .chip-list { margin-top: 14px; }
+
+/* Cards (projects) ---------------------------------------------------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+
+  @include down($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover { transform: none; }
+  }
+}
+
+.card--static:hover {
+  transform: none;
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+.card-cover {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1200 / 630;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+
+  // Absolutely positioned so the box height comes only from aspect-ratio:
+  // any image shape is cropped to fit instead of stretching the card.
+  img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+}
+
+// Projects without a cover keep the same frame so rows stay even: a dark
+// dot-grid panel in the same family as the illustrated covers.
+.card-cover--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 16px 18px;
+  border-bottom-color: #232b3a;
+  background-color: #10151d;
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(106, 163, 238, 0.22), transparent 55%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1.1px, transparent 1.4px);
+  background-size: auto, 24px 24px;
+  font-family: $font-mono;
+  user-select: none;
+
+  .cover-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6f7b92;
+  }
+
+  .cover-path {
+    max-width: 100%;
+    font-size: 0.8rem;
+    color: #aab6cc;
+    overflow-wrap: anywhere;
+  }
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px 20px;
+}
+
+.card-title {
+  font-size: 1.22rem;
+
+  // Stretched link: the whole card is clickable, secondary links sit above.
+  a {
+    color: var(--text);
+
+    &::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+    &:hover { color: var(--accent); }
+  }
+}
+
+.card-text {
+  font-family: $font-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.card-links {
+  display: flex;
+  gap: 14px;
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  a { position: relative; z-index: 1; white-space: nowrap; }
+}
+
+/* Empty state --------------------------------------------------------- */
+
+.empty {
+  margin-top: 24px;
+  padding: 36px 24px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 14px;
+  text-align: center;
+  color: var(--text-2);
+
+  strong { display: block; margin-bottom: 4px; color: var(--text); font-weight: 600; }
+}
+
+/* Tags page ------------------------------------------------------------ */
+
+.tag-cloud { margin-bottom: 40px; }
+
+.tag-group { margin-top: 36px; }
+
+.tag-group-title {
+  margin-bottom: 4px;
+  font-size: 1.35rem;
+}
+
+.link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--border);
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  a { font-family: $font-serif; font-size: 1.08rem; color: var(--text); &:hover { color: var(--accent); } }
+  .link-meta {
+    display: inline-flex;
+    flex: none;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kind {
+    padding: 2px 7px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+}
+
+// On the Projects page the grid follows the page header directly.
+.page-header + .card-grid { margin-top: 0; }

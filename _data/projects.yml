@@ -1,0 +1,34 @@
+# One entry per project. `cover` is a 1200x630 image (the generated SVGs
+# can be swapped for real screenshots any time). `featured: true` shows the
+# project on the home page.
+- title: ThinkbookLM
+  description: A NotebookLM clone with a citation-first RAG architecture for multi-format document processing.
+  cover: /assets/projects/thinkbook-lm.svg
+  tags: [RAG, Document Q&A]
+  repo: https://github.com/sameerdev7/Thinkbook-LM
+  demo: ""
+  featured: true
+
+- title: TransformerLM
+  description: A decoder-only Transformer language model trained from scratch.
+  cover: /assets/projects/transformer-lm.svg
+  tags: [Language Model, From Scratch]
+  repo: https://github.com/sameerdev7/TransformerLM
+  demo: ""
+  featured: true
+
+- title: TextToSQL
+  description: Fine-tuned Phi-3.5 Mini Instruct for text-to-SQL and deployed a quantized llama.cpp inference pipeline with FastAPI and Streamlit.
+  cover: /assets/projects/text-to-sql.svg
+  tags: [Phi-3.5 Mini, llama.cpp, FastAPI, Streamlit]
+  repo: https://github.com/sameerdev7/TextToSQL
+  demo: ""
+  featured: false
+
+- title: From-LR-Transformers
+  description: A collection of deep learning paper implementations.
+  cover: /assets/projects/from-lr-transformers.svg
+  tags: [Paper Implementations]
+  repo: https://github.com/sameerdev7/From-LR-Transformers
+  demo: ""
+  featured: false

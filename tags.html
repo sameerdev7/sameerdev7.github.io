@@ -1,28 +1,35 @@
 ---
-layout: page
+layout: list
 title: Tags
 permalink: /tags/
+lede: Posts and notes grouped by topic.
 ---
-
-{%- assign tags = site.tags | sort -%}
-{%- if tags.size > 0 -%}
-{%- for tag in tags -%}
-<div class="tag-index-group" id="{{ tag[0] | slugify }}">
-  <h2 class="tag-index-heading">{{ tag[0] }}</h2>
-  <ul class="tag-index-list">
-    {%- assign items = tag[1] | sort: "date" | reverse -%}
+{%- assign all_items = site.posts | concat: site.notes -%}
+{%- assign tag_names = all_items | map: "tags" | join: "," | split: "," | uniq | sort_natural -%}
+{%- if tag_names.size > 0 -%}
+<ul class="chip-list tag-cloud">
+  {%- for tag in tag_names -%}
+  {%- assign items = all_items | where_exp: "item", "item.tags contains tag" -%}
+  <li><a class="chip" href="#{{ tag | slugify }}">{{ tag }} <span class="count">{{ items.size }}</span></a></li>
+  {%- endfor -%}
+</ul>
+{%- for tag in tag_names -%}
+<section class="tag-group" id="{{ tag | slugify }}">
+  <h2 class="tag-group-title">{{ tag }}</h2>
+  <ul class="link-list">
+    {%- assign items = all_items | where_exp: "item", "item.tags contains tag" | sort: "date" | reverse -%}
     {%- for item in items -%}
     <li>
       <a href="{{ item.url | relative_url }}">{{ item.title | escape }}</a>
-      <span class="tag-index-date">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        {{ item.date | date: date_format }}
+      <span class="link-meta">
+        {%- if item.collection == "notes" -%}<span class="kind">Note</span>{%- endif -%}
+        <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: site.date_format }}</time>
       </span>
     </li>
     {%- endfor -%}
   </ul>
-</div>
+</section>
 {%- endfor -%}
 {%- else -%}
-<p class="empty-state">No tagged posts yet.</p>
+<div class="empty"><strong>No tags yet</strong>Tags appear once a post or note has them.</div>
 {%- endif -%}

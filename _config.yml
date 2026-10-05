@@ -18,8 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Sameer's Blog
-tagline: Notes on AI, engineering, and the occasional detour.
+title: Sameer Sayyad
 email: sameer7sayyad@gmail.com
 description: Writing about AI and Engineering
 domain: sameerdev7.github.io
@@ -29,7 +28,8 @@ linkedin_username: sameerdev7
 github_username:  sameerdev7
 
 # Build settings
-theme: minima
+# GitHub Pages applies its default "primer" theme unless this is nulled out.
+theme: null
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -40,6 +40,9 @@ input: GFM
 permalink: /:title/
 sass:
   quiet_deps: true
+  style: compressed
+
+date_format: "%b %-d, %Y"
 
 collections:
   notes:

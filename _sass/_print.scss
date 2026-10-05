@@ -1,0 +1,12 @@
+@media print {
+  .site-header, .site-footer, .toc-rail, .toc-inline, .comments, .post-nav,
+  .code-copy, .heading-anchor, .skip-link, .theme-toggle {
+    display: none !important;
+  }
+
+  html, body { background: #fff; color: #000; }
+  .column { max-width: none; padding: 0; }
+  .prose { font-size: 11pt; }
+  .prose a { color: inherit; text-decoration: underline; }
+  .prose pre { white-space: pre-wrap; }
+}

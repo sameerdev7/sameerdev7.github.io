@@ -1,37 +1,55 @@
 ---
 layout: default
 ---
+{%- assign featured = site.data.projects | where: "featured", true -%}
+<div class="column page">
+  <h1 class="visually-hidden">{{ site.author.name }}</h1>
 
-<div class="home wrapper">
-  <h1 class="page-heading">{{ page.title | default: "Blog" }}</h1>
+  <section class="intro" aria-label="About me">
+    {%- if page.photo -%}
+    <figure class="intro-photo">
+      <img src="{{ page.photo | relative_url }}" alt="{{ page.photo_alt | default: site.author.name }}" width="640" height="640" fetchpriority="high" decoding="async">
+    </figure>
+    {%- endif -%}
+    <div class="intro-text prose">
+      {{ content }}
+    </div>
+  </section>
 
-  {%- if site.tagline -%}
-  <p class="page-tagline">{{ site.tagline }}</p>
+  <section class="section" aria-labelledby="latest-title">
+    <div class="section-head">
+      <h2 class="section-title" id="latest-title">Latest posts</h2>
+      <a class="section-link" href="{{ "/blog/" | relative_url }}">All posts →</a>
+    </div>
+    {%- if site.posts.size > 0 -%}
+      {%- for post in site.posts limit: 5 -%}
+        {%- include post-row.html post=post -%}
+      {%- endfor -%}
+    {%- else -%}
+      <div class="empty"><strong>No posts yet</strong>The first one is on its way.</div>
+    {%- endif -%}
+  </section>
+
+  {%- if featured.size > 0 -%}
+  <section class="section" aria-labelledby="projects-title">
+    <div class="section-head">
+      <h2 class="section-title" id="projects-title">Projects</h2>
+      <a class="section-link" href="{{ "/projects/" | relative_url }}">All projects →</a>
+    </div>
+    <div class="card-grid">
+      {%- for project in featured -%}{%- include project-card.html project=project -%}{%- endfor -%}
+    </div>
+  </section>
   {%- endif -%}
 
-  {{ content }}
-
-  {%- if site.posts.size > 0 -%}
-  <ul class="post-list">
-    {%- for post in site.posts -%}
-      {%- if post.archived != true -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h2 class="post-item-title">
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h2>
-        {%- if post.excerpt -%}
-          <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 24 }}</p>
-        {%- endif -%}
-      </li>
-      {%- endif -%}
-    {%- endfor -%}
-  </ul>
-  {%- else -%}
-  <p class="empty-state">No posts yet — check back soon.</p>
+  {%- if site.notes.size > 0 -%}
+  {%- assign recent_notes = site.notes | sort: "date" | reverse -%}
+  <section class="section" aria-labelledby="notes-title">
+    <div class="section-head">
+      <h2 class="section-title" id="notes-title">Recent notes</h2>
+      <a class="section-link" href="{{ "/notes/" | relative_url }}">All notes →</a>
+    </div>
+    {%- for note in recent_notes limit: 3 -%}{%- include post-row.html post=note -%}{%- endfor -%}
+  </section>
   {%- endif -%}
-
 </div>

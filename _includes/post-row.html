@@ -1,0 +1,14 @@
+{%- assign p = include.post -%}
+<article class="post-row">
+  <time class="post-row-date" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: site.date_format }}</time>
+  <div>
+    <h3 class="post-row-title"><a href="{{ p.url | relative_url }}">{{ p.title | escape }}</a></h3>
+    {%- assign blurb = p.excerpt | strip_html | strip -%}
+    {%- if blurb != "" -%}<p class="post-row-excerpt">{{ blurb | truncatewords: 32 }}</p>{%- endif -%}
+    {%- if p.tags.size > 0 -%}
+    <ul class="chip-list">
+      {%- for tag in p.tags -%}<li><a class="chip" href="{{ "/tags/" | relative_url }}#{{ tag | slugify }}">{{ tag }}</a></li>{%- endfor -%}
+    </ul>
+    {%- endif -%}
+  </div>
+</article>

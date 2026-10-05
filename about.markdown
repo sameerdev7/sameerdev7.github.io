@@ -29,6 +29,7 @@ I'm fascinated by the intersection of AI and engineering, constantly exploring h
 - **AI/ML:** PyTorch, Transformers, Hugging Face, Scikit-learn
 - **Backend:** FastAPI, PostgreSQL, Docker, MySQL
 - **Frontend:** React, Tailwind
+{: .stack}
 
 ### Why This Blog?
 

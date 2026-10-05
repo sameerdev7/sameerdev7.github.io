@@ -1,20 +1,20 @@
-<header class="site-header" role="banner">
-  <div class="wrapper site-header-inner">
-    <a class="site-title" href="{{ "/" | relative_url }}" rel="author">{{ site.title | escape }}</a>
+<header class="site-header" data-site-header>
+  <div class="column header-inner">
+    <a class="brand" href="{{ "/" | relative_url }}" aria-label="{{ site.title | escape }} — home">
+      <img src="{{ "/assets/favicon.svg" | relative_url }}" width="28" height="28" alt="">
+      <span class="brand-text">{{ site.title | escape }}</span>
+    </a>
 
-    <nav class="site-nav">
-      <a class="nav-link" href="{{ "/" | relative_url }}">Blog</a>
-      <a class="nav-link" href="{{ "/notes/" | relative_url }}">Notes</a>
-      <a class="nav-link" href="{{ "/projects/" | relative_url }}">Projects</a>
-      <a class="nav-link" href="{{ "/tags/" | relative_url }}">Tags</a>
-      <a class="nav-link" href="{{ "/about/" | relative_url }}">About</a>
-
-      <span class="nav-icons">
-        {%- if site.github_username -%}
-        <a class="nav-link" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener me">GitHub</a>
-        {%- endif -%}
-        {%- include theme-toggle.html -%}
-      </span>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-links">
+      {%- for item in site.data.nav -%}
+        {%- assign active = false -%}
+        {%- if page.url == item.url -%}{%- assign active = true -%}{%- endif -%}
+        {%- if item.layouts and item.layouts contains page.layout -%}{%- assign active = true -%}{%- endif -%}
+        <a href="{{ item.url | relative_url }}"{% if active %} aria-current="page"{% endif %}>{{ item.title }}</a>
+      {%- endfor -%}
+      </div>
+      {%- include theme-toggle.html -%}
     </nav>
   </div>
 </header>

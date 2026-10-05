@@ -1,0 +1,108 @@
+// Code blocks: one bordered box (the Rouge wrapper, or a bare <pre>), an
+// optional header bar with language + copy button added by site.js.
+
+.prose div.highlighter-rouge,
+.prose > pre {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--code-border);
+  border-radius: 12px;
+  background: var(--code-bg);
+  color: var(--code-fg);
+}
+
+.prose .highlight {
+  margin: 0;
+  background: transparent;
+  border: 0;
+}
+
+.prose pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  background: transparent;
+  border: 0;
+  font-family: $font-mono;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  tab-size: 4;
+
+  code {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    font-size: inherit;
+    color: inherit;
+  }
+}
+
+.prose > pre { padding: 16px 18px; }
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 6px 5px 16px;
+  border-bottom: 1px solid var(--code-border);
+  background: var(--surface-2);
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+.code-copy {
+  padding: 5px 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+
+  &:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface); }
+  &.is-copied { color: var(--accent); border-color: var(--accent); }
+
+  // No header bar (plain output blocks): float in the corner.
+  &.is-floating {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--surface);
+    border-color: var(--border);
+    opacity: 0.6;
+
+    &:hover, &:focus-visible, &.is-copied { opacity: 1; }
+  }
+}
+
+/* Rouge token colours (all from the --code-* tokens) --------------------- */
+
+.highlight {
+  .c, .cm, .c1, .cs, .cp { color: var(--code-comment); font-style: italic; }
+  .err { color: var(--code-error-fg); background-color: var(--code-error-bg); }
+  .k, .kc, .kd, .kp, .kr, .ow { color: var(--code-keyword); font-weight: 600; }
+  .kt, .nb, .bp { color: var(--code-function); }
+  .o { color: var(--code-fg); font-weight: 600; }
+  .m, .mf, .mh, .mi, .mo, .il { color: var(--code-number); }
+  .s, .sb, .sc, .s2, .se, .sh, .si, .sx, .sr, .s1 { color: var(--code-string); }
+  .sd { color: var(--code-comment); font-style: italic; }
+  .ss, .ni, .nv, .vc, .vg, .vi { color: var(--code-variable); }
+  .na { color: var(--code-attr); }
+  .nc, .nf { color: var(--code-function); font-weight: 600; }
+  .no { color: var(--code-constant); }
+  .ne, .gt, .gr { color: var(--code-error-fg); font-weight: 600; }
+  .nt { color: var(--code-tag); }
+  .nn, .w { color: var(--code-fg); }
+  .go, .gp, .gh, .gu { color: var(--code-comment); }
+  .gd { color: var(--code-error-fg); background-color: var(--code-error-bg); }
+  .gi { color: var(--code-string); }
+  .ge { font-style: italic; }
+  .gs { font-weight: 600; }
+}

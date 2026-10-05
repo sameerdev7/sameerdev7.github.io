@@ -1,0 +1,11 @@
+---
+layout: list
+title: Projects
+permalink: /projects/
+lede: Things I've built, mostly around language models and the systems that serve them.
+---
+<div class="card-grid" style="margin-top:0">
+  {%- for project in site.data.projects -%}
+    {%- include project-card.html project=project -%}
+  {%- endfor -%}
+</div>

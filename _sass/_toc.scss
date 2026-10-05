@@ -1,86 +1,128 @@
-/**
- * Sidebar table of contents (populated by assets/js/toc.js)
- */
-.post-toc {
-  // `visibility: hidden` (not `display: none`) when there aren't enough
-  // headings to populate it: the element still occupies its grid track, so
-  // the article stays in its own (wider) track and centered instead of
-  // auto-flowing into the TOC's narrower one. Only actually removed from
-  // the grid below $on-toc, where the layout collapses to one column and
-  // there's no track to preserve.
-  visibility: hidden;
+// "On this page". Two presentations of the same list (site.js fills both):
+//  - wide screens: a sticky rail in the left gutter, absolutely positioned
+//    so it never takes part in centering the article;
+//  - everything narrower: a collapsible block above the article.
+// Both stay hidden (the `hidden` attribute) until the post has 2+ headings.
 
-  @media screen and (max-width: $on-toc) {
-    display: none !important;
+.post-shell {
+  // Positioning context for the rail.
+  position: relative;
+}
+
+.toc-rail {
+  display: none;
+
+  @include up($bp-rail) {
+    &:not([hidden]) {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: calc(100% + 32px);
+      // Whatever is left of the gutter, capped.
+      width: raw("min(240px, calc((100vw - #{$measure}) / 2 - 56px))");
+    }
   }
 }
 
-.post-toc.is-active {
-  visibility: visible;
+.toc {
   position: sticky;
-  top: $spacing-unit;
-  align-self: start;
-  max-height: calc(100vh - #{$spacing-unit} * 2);
+  top: $header-h + 24px;
+  max-height: calc(100vh - #{$header-h} - 48px);
   overflow-y: auto;
-  font-family: $sans-font-family;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 18px 20px;
+  padding-right: 4px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  overscroll-behavior: contain;
 }
 
-.post-toc-heading {
-  @include relative-font-size(0.8);
+.toc-title {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  cursor: pointer;
-  list-style: none;
-
-  &::-webkit-details-marker {
-    display: none;
-  }
+  color: var(--text-3);
 }
 
-.post-toc.is-active[open] .post-toc-heading {
-  margin-bottom: 12px;
-}
-
-.post-toc-list,
-.post-toc-list ul {
-  list-style: none;
+.toc-list,
+.toc-list ul {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
-.post-toc-list {
-  @include relative-font-size(0.82);
-}
+.toc-list { border-left: 1px solid var(--border); }
 
-.post-toc-list ul {
-  margin-left: 14px;
-  border-left: 1px solid var(--border);
-  padding-left: 12px;
-  margin-top: 8px;
-}
-
-.post-toc-list li {
-  margin-bottom: 10px;
-}
-
-.post-toc-list a {
-  color: var(--text-muted);
+.toc-list a {
   display: block;
-  line-height: 1.45;
+  margin-left: -1px;
+  padding: 5px 8px 5px 14px;
+  border-left: 2px solid transparent;
+  color: var(--text-3);
+  transition: color 0.15s ease;
 
-  &:hover {
-    color: var(--text);
-    text-decoration: none;
+  &:hover { color: var(--text); }
+  &.is-active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
   }
 }
 
-.post-toc-list a.is-active {
-  color: var(--accent);
-  font-weight: 600;
+.toc-list ul a {
+  padding-left: 28px;
+  font-size: 0.82rem;
+}
+
+.toc-inline {
+  margin-bottom: 36px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+
+  @include up($bp-rail) { display: none; }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 16px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-2);
+
+    &::-webkit-details-marker { display: none; }
+    &::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--text-3);
+      border-bottom: 2px solid var(--text-3);
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &[open] summary::after { transform: rotate(-135deg); }
+  &[open] summary { border-bottom: 1px solid var(--border); }
+
+  .toc-list {
+    margin: 10px 16px 14px;
+    border-left: 0;
+
+    @include up($bp-sm) {
+      columns: 2;
+      column-gap: 28px;
+    }
+
+    > li { break-inside: avoid; }
+  }
+
+  .toc-list a { padding-left: 10px; margin-left: 0; }
+  .toc-list ul a { padding-left: 24px; }
 }

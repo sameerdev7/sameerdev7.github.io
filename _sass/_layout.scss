@@ -1,0 +1,249 @@
+// The one column. Header, page content, article and footer all use it, so
+// the logo, the first line of text and the footer copyright share a left edge.
+.column {
+  width: 100%;
+  max-width: calc(#{$measure} + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.site-main {
+  flex: 1;
+  width: 100%;
+}
+
+.page {
+  padding-block: raw("clamp(32px, 6vw, 64px)") 0;
+}
+
+/* Header ------------------------------------------------------------ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+
+  &.is-scrolled { border-bottom-color: var(--border); }
+}
+
+.header-inner {
+  height: $header-h;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+
+  img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+  }
+
+  &:hover { color: var(--text); opacity: 0.8; }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  // Pull the pills out so the *text* of the last link and the toggle sit on
+  // the column's right edge.
+  margin-right: -10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  a {
+    padding: 7px 12px;
+    border-radius: 8px;
+    color: var(--text-2);
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover { color: var(--text); background: var(--surface-2); }
+    &[aria-current="page"] { color: var(--text); background: var(--surface-2); }
+  }
+}
+
+// Phones: the single row can't hold the name plus five items, so the name and
+// theme toggle share the top row and the links sit on a second one. The header
+// isn't sticky here — two rows would eat too much of a small screen.
+@include down(560px) {
+  .site-header { position: static; }
+
+  .header-inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding-block: 14px 6px;
+    row-gap: 4px;
+  }
+
+  .nav { display: contents; }
+  .brand { order: 1; }
+  .theme-toggle { order: 2; margin-right: -8px; }
+  .nav-links { order: 3; flex: 0 0 100%; margin-left: -10px; }
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover { color: var(--text); background: var(--surface-2); }
+
+  .icon-sun { display: none; }
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  .icon-sun { display: block; }
+  .icon-moon { display: none; }
+}
+
+/* Footer ------------------------------------------------------------ */
+
+.site-footer {
+  margin-top: raw("clamp(72px, 12vw, 120px)");
+  border-top: 1px solid var(--border);
+  padding-block: 28px 40px;
+  font-size: 0.875rem;
+  color: var(--text-3);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  a { color: var(--text-3); &:hover { color: var(--text); } }
+}
+
+/* Page header (list pages, about) ----------------------------------- */
+
+.page-header {
+  margin-bottom: raw("clamp(28px, 5vw, 44px)");
+}
+
+.page-title {
+  font-size: raw("clamp(2rem, 1.5rem + 2vw, 2.6rem)");
+  letter-spacing: -0.025em;
+}
+
+.page-lede {
+  margin-top: 12px;
+  max-width: 34em;
+  font-family: $font-serif;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* Home intro: short bio beside a round photo ------------------------- */
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  grid-template-areas: "text photo";
+  gap: 24px 48px;
+  align-items: start;
+
+  @include down($bp-sm) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "photo" "text";
+  }
+}
+
+.intro-text {
+  grid-area: text;
+  font-size: 1.1rem;
+}
+
+.intro-photo {
+  grid-area: photo;
+  margin: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    // The height attribute (for layout stability) would otherwise win over aspect-ratio.
+    height: auto;
+    aspect-ratio: 1;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface-2);
+  }
+
+  @include down($bp-sm) { width: 132px; }
+}
+
+/* Sections ----------------------------------------------------------- */
+
+.section {
+  margin-top: raw("clamp(48px, 8vw, 72px)");
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: $font-sans;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.section-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+}

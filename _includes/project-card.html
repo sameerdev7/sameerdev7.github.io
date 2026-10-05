@@ -1,0 +1,54 @@
+{%- comment -%}
+  Everything except the title is optional: a card works with or without a
+  cover, repo link, demo link, tags or description.
+{%- endcomment -%}
+{%- assign pr = include.project -%}
+{%- assign primary = pr.repo | default: pr.demo -%}
+{%- assign linked = false -%}
+{%- if primary and primary != "" -%}{%- assign linked = true -%}{%- endif -%}
+{%- assign has_cover = false -%}
+{%- if pr.cover and pr.cover != "" -%}{%- assign has_cover = true -%}{%- endif -%}
+{%- assign has_links = false -%}
+{%- if linked or pr.demo and pr.demo != "" -%}{%- assign has_links = true -%}{%- endif -%}
+<article class="card{% unless linked %} card--static{% endunless %}">
+  {%- if has_cover -%}
+  {%- if linked -%}
+  <a class="card-cover" href="{{ primary }}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+    <img src="{{ pr.cover | relative_url }}" alt="" width="1200" height="630" loading="lazy" decoding="async">
+  </a>
+  {%- else -%}
+  <div class="card-cover">
+    <img src="{{ pr.cover | relative_url }}" alt="" width="1200" height="630" loading="lazy" decoding="async">
+  </div>
+  {%- endif -%}
+  {%- else -%}
+  <div class="card-cover card-cover--empty" aria-hidden="true">
+    {%- if pr.repo and pr.repo != "" -%}
+    <span class="cover-kicker">Repository</span>
+    <span class="cover-path">{{ pr.repo | remove: "https://" | remove: "http://" }}</span>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+
+  <div class="card-body">
+    <h3 class="card-title">
+      {%- if linked -%}<a href="{{ primary }}" target="_blank" rel="noopener">{{ pr.title }}</a>{%- else -%}{{ pr.title }}{%- endif -%}
+    </h3>
+    {%- if pr.description and pr.description != "" -%}<p class="card-text">{{ pr.description }}</p>{%- endif -%}
+    {%- if pr.tags.size > 0 or has_links -%}
+    <div class="card-foot">
+      {%- if pr.tags.size > 0 -%}
+      <ul class="chip-list">
+        {%- for t in pr.tags -%}<li><span class="chip">{{ t }}</span></li>{%- endfor -%}
+      </ul>
+      {%- endif -%}
+      {%- if has_links -%}
+      <p class="card-links">
+        {%- if pr.repo and pr.repo != "" -%}<a href="{{ pr.repo }}" target="_blank" rel="noopener">GitHub ↗</a>{%- endif -%}
+        {%- if pr.demo and pr.demo != "" -%}<a href="{{ pr.demo }}" target="_blank" rel="noopener">Demo ↗</a>{%- endif -%}
+      </p>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+  </div>
+</article>

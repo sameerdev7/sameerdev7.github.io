@@ -1,0 +1,11 @@
+---
+layout: list
+title: Blog
+permalink: /blog/
+lede: Longer write-ups on AI and software engineering.
+---
+{%- if site.posts.size > 0 -%}
+  {%- for post in site.posts -%}{%- include post-row.html post=post -%}{%- endfor -%}
+{%- else -%}
+  <div class="empty"><strong>No posts yet</strong>The first one is on its way.</div>
+{%- endif -%}

@@ -1,0 +1,80 @@
+// Colour tokens as CSS custom properties so the theme toggle can swap them
+// at runtime. Edit these (not the component partials) to retheme.
+
+@mixin dark-tokens {
+  color-scheme: dark;
+
+  --bg: #121418;
+  --surface: #181b21;
+  --surface-2: #1e222a;
+  --text: #e8e7e3;
+  --text-2: #bab9b2;
+  --text-3: #8f8e87;
+  --border: #272b33;
+  --border-strong: #363b46;
+  --accent: #7fb0e8;
+  --accent-soft: #19232f;
+  --header-bg: rgba(18, 20, 24, 0.86);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+  --selection: rgba(127, 176, 232, 0.28);
+
+  --code-bg: #161a20;
+  --code-border: #272b33;
+  --code-fg: #d8d6d0;
+  --code-comment: #7f8088;
+  --code-keyword: #e893c4;
+  --code-string: #8fd19e;
+  --code-number: #6fc6d9;
+  --code-function: #7fb0e8;
+  --code-tag: #e0a45f;
+  --code-attr: #d9c069;
+  --code-variable: #b3a6e8;
+  --code-constant: #6fc6d9;
+  --code-error-fg: #ff8a80;
+  --code-error-bg: #3a2323;
+}
+
+:root {
+  color-scheme: light;
+  --gutter: clamp(20px, 5vw, 32px);
+
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --surface-2: #f3f1ea;
+  --text: #1b1b19;
+  --text-2: #4b4a44;
+  --text-3: #6e6d64;
+  --border: #e8e4da;
+  --border-strong: #d5d0c2;
+  --accent: #2b5fa0;
+  --accent-soft: #eaf1f9;
+  --header-bg: rgba(251, 250, 247, 0.86);
+  --shadow: 0 1px 2px rgba(30, 28, 20, 0.05), 0 12px 28px -14px rgba(30, 28, 20, 0.2);
+  --selection: rgba(43, 95, 160, 0.18);
+
+  --code-bg: #f6f4ef;
+  --code-border: #e8e4da;
+  --code-fg: #3a3a38;
+  --code-comment: #85826f;
+  --code-keyword: #a63d7a;
+  --code-string: #3f7d4a;
+  --code-number: #0f7a8c;
+  --code-function: #1c5fa8;
+  --code-tag: #a1521c;
+  --code-attr: #8a6a1c;
+  --code-variable: #5b4ea6;
+  --code-constant: #0f7a8c;
+  --code-error-fg: #b5312a;
+  --code-error-bg: #fbe7e5;
+}
+
+:root[data-theme="dark"] {
+  @include dark-tokens;
+}
+
+// No saved choice and JS off: follow the OS.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include dark-tokens;
+  }
+}

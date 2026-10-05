@@ -1,16 +1,10 @@
 <footer class="site-footer">
-  <div class="wrapper footer-inner">
-    <p class="footer-line">© {{ "now" | date: "%Y" }} {{ site.author.name | default: site.title }}</p>
-    <p class="footer-links">
-      {%- if site.github_username -%}
-      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
-      {%- endif -%}
-      {%- if site.linkedin_username -%}
-      <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener">LinkedIn</a>
-      {%- endif -%}
-      {%- if site.email -%}
-      <a href="mailto:{{ site.email }}">Email</a>
-      {%- endif -%}
-    </p>
+  <div class="column footer-inner">
+    <p>© {{ "now" | date: "%Y" }} {{ site.author.name | default: site.title }}</p>
+    <ul class="footer-links">
+      {%- if site.github_username -%}<li><a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener me">GitHub</a></li>{%- endif -%}
+      {%- if site.linkedin_username -%}<li><a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener me">LinkedIn</a></li>{%- endif -%}
+      {%- if site.email -%}<li><a href="mailto:{{ site.email }}">Email</a></li>{%- endif -%}
+    </ul>
   </div>
 </footer>

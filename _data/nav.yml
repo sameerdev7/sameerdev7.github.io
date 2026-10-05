@@ -1,0 +1,12 @@
+# Header navigation. `layouts` makes the item show as active on pages
+# that use those layouts (e.g. a post highlights "Blog").
+- title: Blog
+  url: /blog/
+  layouts: [post]
+- title: Notes
+  url: /notes/
+  layouts: [note]
+- title: Projects
+  url: /projects/
+- title: About
+  url: /about/

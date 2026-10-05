@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+// Fonts: Source Serif 4 for reading, Inter for UI chrome (both self-hosted,
+// see _fonts.scss), system monospace for code.
+$font-serif: "Source Serif 4", "Iowan Old Style", Charter, Georgia, "Times New Roman", serif;
+$font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+
+// One reading column shared by the header, page content, article and footer,
+// so every left edge lines up.
+$measure: 760px;
+$header-h: 64px;
+
+$bp-sm: 640px;
+$bp-md: 900px;
+// Wide enough for the TOC rail to sit in the left gutter beside the article.
+$bp-rail: 1240px;
+
+// Pass CSS math functions (clamp/min/max/color-mix) through untouched. The
+// libsass build GitHub Pages uses tries to evaluate their arguments and fails
+// on mixed units (e.g. 1.5rem + 2vw).
+@function raw($value) {
+  @return unquote($value);
+}
+
+@mixin up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+@mixin down($bp) {
+  @media (max-width: $bp - 1px) { @content; }
+}
+
+@import
+  "fonts",
+  "tokens",
+  "base",
+  "layout",
+  "components",
+  "prose",
+  "code",
+  "toc",
+  "print";

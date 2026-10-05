@@ -1,5 +1,6 @@
 {%- if site.giscus.repo and site.giscus.repo != "" -%}
-<section class="post-comments">
+<section class="comments" aria-labelledby="comments-title">
+  <h2 class="section-title" id="comments-title">Discussion</h2>
   <script src="https://giscus.app/client.js"
           data-repo="{{ site.giscus.repo }}"
           data-repo-id="{{ site.giscus.repo_id }}"
